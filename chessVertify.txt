@@ -1,0 +1,10 @@
+1 -> ./test/Mandarin_1.jpg
+2 -> ./test/Cannons_1.jpg
+3 -> ./test/Soldier_1.jpg
+4 -> ./test/King_1.jpg
+5 -> ./test/Rook_1.jpg
+6 -> ./test/Elephant_1.jpg
+7 -> ./test/Pawns_1.jpg
+8 -> ./test/Knight_1.jpg
+9 -> ./test/Minister_1.jpg
+10 -> ./test/General_1.jpg
