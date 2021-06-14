@@ -52,7 +52,7 @@ def trainModel(x_train, y_train, size):
     model.compile(loss="categorical_crossentropy", optimizer="Adam", metrics=["accuracy"])
 
     early_stopping = EarlyStopping(monitor='val_acc', min_delta=0.01, patience=2, mode='max')
-    history = model.fit(x_train, y_train, batch_size=36, epochs=1, callbacks=[early_stopping], verbose=1,
+    history = model.fit(x_train, y_train, batch_size=32, epochs=i, callbacks=[early_stopping], verbose=1,
                         validation_split=0.1)
 
     # 4. 训练

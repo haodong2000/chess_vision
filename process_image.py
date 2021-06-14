@@ -7,6 +7,7 @@ from load_data import norm_size
 from load_data import str2int
 from load_data import CHESS_TABLE
 import CNN_train
+import CNN_train_w
 import numpy as np
 import tensorflow as tf
 import cv2
@@ -35,6 +36,7 @@ def load_data(image_paths, norm_size):
         label.append(maker)
 
     data = np.array(data)
+    print("data shape = ", data.shape)
     data = filter.RedBlackBoost(data)
     data = data/255.0
     label = np.array(label)
@@ -55,9 +57,10 @@ def main(): # 主函数
     pathChessChoose = "./data_360"  # 人为选择的数据的路径
     all_chess_data_path = docuChessInfo(pathChessChoose)
     data, label = load_data(all_chess_data_path, norm_size)
-    model = CNN_train.TrainCnnModel(data, label, norm_size)
-    model.save("modelSave/boost_cnn_model.h5")
-    print("Model saved.")
+    # model = CNN_train.TrainCnnModel(data, label, norm_size)
+    # model.save("./modelSave/boost_cnn_model.h5")
+    # print("Model saved.")
+    CNN_train_w.trainModel(data, label, norm_size)
 
 # 调用函数
 if __name__ == '__main__':

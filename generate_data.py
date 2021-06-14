@@ -11,7 +11,7 @@ import datetime
 
 from PIL import Image
 
-number_angle = 15
+number_angle = 360
 
 def clear(data_gen_path, data_no_use_path):
     data_no_use = os.listdir(data_no_use_path)
@@ -58,23 +58,24 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
                                    cv2.HOUGH_GRADIENT, 
                                    1.0, 
                                    im.size[0]/8.0, 
-                                   param1=300, 
-                                   param2=50, 
-                                   minRadius=round(min(im.size[0], im.size[1])/4.0), 
+                                   param1=300,
+                                   param2=50,
+                                   minRadius=round(min(im.size[0], im.size[1])/4.0),
                                    maxRadius=round(max(im.size[0], im.size[1])))
         
         # only one circle
-        only_one_x = 0
-        only_one_y = 0
-        only_one_w = 0
-        only_one_h = 0
+        only_one_x = []
+        only_one_y = []
+        only_one_w = []
+        only_one_h = []
         count_circle = 0
         if circles is not None:
             circles = np.uint16(np.around(circles))
             for indexCircle in circles[0, :]:
-                only_one_x = indexCircle[0] - indexCircle[2]
-                only_one_y = indexCircle[1] - indexCircle[2]
-                only_one_w = only_one_h = indexCircle[2]*2
+                only_one_x.append(indexCircle[0] - indexCircle[2])
+                only_one_y.append(indexCircle[1] - indexCircle[2])
+                only_one_w.append(indexCircle[2]*2)
+                only_one_h.append(indexCircle[2]*2)
                 # print("count_circle = ", count_circle)
                 count_circle = count_circle + 1
                 center = (indexCircle[0], indexCircle[1]) # circle center
@@ -97,26 +98,53 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
             print("===============" + new_origin_name + "==SAVED===================")
         else:
             print("generate_data.py, line:55, esc or enter expected")
+
+        crop_result = []
+
+        for index in range(count_circle):
+            # Copy that image using that mask
+            crop_cv_im = cv2.bitwise_and(cv_im, cv_im, mask=mask)
+            # apply threshold
+            _, thresh = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)
+            # find contour
+            # contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            crop_cv_im = crop_cv_im[only_one_y[index]:only_one_y[index] + only_one_h[index],
+                                    only_one_x[index]:only_one_x[index] + only_one_w[index]]
+            crop_result.append(crop_cv_im)
+
+        for index in range(count_circle):
+            index -= 1
+            cv2.imshow(origin_image + "  <crop>", crop_result[index])
+            flag = cv2.waitKey(0)
+            if flag == 27:
+                cv2.destroyWindow(origin_image + "  <crop>")
+            elif flag == 13:
+                new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + origin_image
+                cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_result[index])
+                cv2.destroyWindow(origin_image + "  <crop>")
+                print("===============" + new_origin_name + "==SAVED===================")
+            else:
+                print("generate_data.py, line:24, esc expected")
         
-        # Copy that image using that mask
-        crop_cv_im = cv2.bitwise_and(cv_im, cv_im, mask=mask)
-        # apply threshold
-        _, thresh = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)
-        # find contour
-        # contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        crop_cv_im = crop_cv_im[only_one_y:only_one_y + only_one_h,
-                                only_one_x:only_one_x + only_one_w]
-        cv2.imshow(origin_image + "  <crop>", crop_cv_im)
-        flag = cv2.waitKey(0)
-        if flag == 27:
-            cv2.destroyWindow(origin_image + "  <crop>")
-        elif flag == 13:
-            new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + origin_image
-            cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
-            cv2.destroyWindow(origin_image + "  <crop>")
-            print("===============" + new_origin_name + "==SAVED===================")
-        else:
-            print("generate_data.py, line:24, esc expected")
+        # # Copy that image using that mask
+        # crop_cv_im = cv2.bitwise_and(cv_im, cv_im, mask=mask)
+        # # apply threshold
+        # _, thresh = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)
+        # # find contour
+        # # contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # crop_cv_im = crop_cv_im[only_one_y:only_one_y + only_one_h,
+        #                         only_one_x:only_one_x + only_one_w]
+        # cv2.imshow(origin_image + "  <crop>", crop_cv_im)
+        # flag = cv2.waitKey(0)
+        # if flag == 27:
+        #     cv2.destroyWindow(origin_image + "  <crop>")
+        # elif flag == 13:
+        #     new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + origin_image
+        #     cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
+        #     cv2.destroyWindow(origin_image + "  <crop>")
+        #     print("===============" + new_origin_name + "==SAVED===================")
+        # else:
+        #     print("generate_data.py, line:24, esc expected")
 
         ret_img.append(crop_cv_im)
 

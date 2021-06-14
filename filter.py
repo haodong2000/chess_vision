@@ -85,4 +85,5 @@ def RedBlackBoost(img_set):
         # print("img" + str(idx) + " OK.")
         idx += 1
 
+    del img_set
     return boosted_img_set
