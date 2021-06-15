@@ -7,11 +7,16 @@ import os
 
 import numpy as np
 
+from load_data import norm_size
+
 import datetime
 
 from PIL import Image
 
-number_angle = 360
+import Global_Params
+
+number_angle = Global_Params.M_number_angle
+IMAGE_SHOW = False
 
 def clear(data_gen_path, data_no_use_path):
     data_no_use = os.listdir(data_no_use_path)
@@ -29,8 +34,8 @@ def clear(data_gen_path, data_no_use_path):
 
 
 def generate_data(data_new_path, data_gen_path, data_no_use_path):
-    img_width = 620
-    img_height = 620
+    img_width = norm_size
+    img_height = norm_size
 
     ret_img = []
 
@@ -89,17 +94,18 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
         else:
             print("count_circle = ", count_circle)
 
-        cv2.imshow(origin_image + "  <circle>", cv_im)
-        flag = cv2.waitKey(0)
-        if flag == 27:
-            cv2.destroyWindow(origin_image + "  <circle>")
-        elif flag == 13:
-            new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_circle_" + origin_image
-            cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), cv_im)
-            cv2.destroyWindow(origin_image + "  <circle>")
-            print("===============" + new_origin_name + "==SAVED===================")
-        else:
-            print("generate_data.py, line:55, esc or enter expected")
+        if IMAGE_SHOW:
+            cv2.imshow(origin_image + "  <circle>", cv_im)
+            flag = cv2.waitKey(0)
+            if flag == 27:
+                cv2.destroyWindow(origin_image + "  <circle>")
+            elif flag == 13:
+                new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_circle_" + origin_image
+                cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), cv_im)
+                cv2.destroyWindow(origin_image + "  <circle>")
+                print("===============" + new_origin_name + "==SAVED===================")
+            else:
+                print("generate_data.py, line:55, esc or enter expected")
 
         crop_result = []
 
@@ -117,17 +123,18 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
 
         for index in range(count_circle):
             index -= 1
-            cv2.imshow(origin_image + "  <crop>", crop_result[index])
-            flag = cv2.waitKey(0)
-            if flag == 27:
-                cv2.destroyWindow(origin_image + "  <crop>")
-            elif flag == 13:
-                new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + origin_image
-                cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_result[index])
-                cv2.destroyWindow(origin_image + "  <crop>")
-                print("===============" + new_origin_name + "==SAVED===================")
-            else:
-                print("generate_data.py, line:24, esc expected")
+            if IMAGE_SHOW:
+                cv2.imshow(origin_image + "  <crop>", crop_result[index])
+                flag = cv2.waitKey(0)
+                if flag == 27:
+                    cv2.destroyWindow(origin_image + "  <crop>")
+                elif flag == 13:
+                    new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + origin_image
+                    cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_result[index])
+                    cv2.destroyWindow(origin_image + "  <crop>")
+                    print("===============" + new_origin_name + "==SAVED===================")
+                else:
+                    print("generate_data.py, line:24, esc expected")
 
         ret_img.append(crop_cv_im)
 
@@ -152,11 +159,11 @@ def generate_date_360(data_per_360_path, data_360_path):
 
 # use for debug
 def main():
-    data_new_path = "./data_new"
-    data_gen_path = "./data_360"
-    data_no_use_path = "./data_no_use"
-    data_per_360_path = "./data_pre_360"
-    data_360_path = "./data_360"
+    data_new_path = Global_Params.M_data_new_path
+    data_gen_path = Global_Params.M_data_gen_path
+    data_no_use_path = Global_Params.M_data_no_use_path
+    data_per_360_path = Global_Params.M_data_per_360_path
+    data_360_path = Global_Params.M_data_360_path
     clear(data_gen_path, data_no_use_path)
     circle_img = generate_data(data_new_path, data_gen_path, data_no_use_path)
     generate_date_360(data_per_360_path, data_360_path)

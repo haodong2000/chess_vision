@@ -6,6 +6,8 @@ import os # call system API
 import datetime
 from PIL import Image
 
+import Global_Params
+
 def getOriginImage():
     print(cv2.__version__)
     capture = cv2.VideoCapture(0) # on Webcam
@@ -20,9 +22,9 @@ def getOriginImage():
                 int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)))
     print("new size: ", new_size)
 
-    test_ImageStore = "./test_image_process/systemCamTest";
-    ImageStorePath = "./data/origin_image";
-    count = 0;
+    test_ImageStore = Global_Params.M_systemCamTest_path
+    ImageStorePath = Global_Params.M_origin_image_path
+    count = 0
 
     while(True):
         ret, origin_image = capture.read()

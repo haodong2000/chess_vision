@@ -7,10 +7,12 @@ import tensorflow as tf
 import keras
 import platform
 
+import Global_Params
+
 import sys
 sys.dont_write_bytecode = True
 
-norm_size = 620
+norm_size = Global_Params.M_norm_size
 
 CHESS_TABLE = [
     "b_gen_",
@@ -40,7 +42,7 @@ def docuChessInfo(pathChessChoose):
 
     # 遍历数据集，并存入inf列表
     # 建立txt文件记录数据
-    chess_info_txt = "./chessInfo.txt"
+    chess_info_txt = Global_Params.M_chess_info_txt
     f = open(chess_info_txt, 'w')
 
     # 遍历
@@ -69,7 +71,7 @@ def docuChessInfo(pathChessChoose):
     return all_chess_data_path
 
 def main(): # 主函数
-    pathChessChoose = "./data_360"  # 人为选择的数据的路径
+    pathChessChoose = Global_Params.M_data_360_path  # 人为选择的数据的路径
     all_chess_data_path = docuChessInfo(pathChessChoose)
 
 # 调用函数

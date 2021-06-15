@@ -10,22 +10,27 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten, Dense
 from keras.callbacks import EarlyStopping
 
-import matplotlib.pyplot as plt # plt 用于显示图片
+import Global_Params
+
+import matplotlib
+
 import matplotlib.image as mp # mpimg 用于读取图片
 from PIL import Image
 import numpy as np
 import math
 import os
 
-img_h = 250
-img_w = 250
-channel = 1
-classes = 12
+import tkinter
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt # plt 用于显示图片
+
+validation_split_rate = Global_Params.M_validation_split_rate
 
 # 训练cnn模型
 # 这里的x_train,x_test里面存放的不是图像路径，而是读取图像之后的数组，与之前的x_train, x_test不一样
-def trainModel(x_train, y_train, size):
-    i = 100 # epoch number
+def trainModel(x_train, y_train, size, x_test, y_test):
+    i = Global_Params.M_epoch_number # epoch number
     # 2. 定义模型结构
     # 迭代次数：第一次设置为30，后为了优化训练效果更改为100，后改为50
     model = Sequential()
@@ -51,9 +56,9 @@ def trainModel(x_train, y_train, size):
     model.add(Dense(15, activation='softmax'))
     model.compile(loss="categorical_crossentropy", optimizer="Adam", metrics=["accuracy"])
 
-    early_stopping = EarlyStopping(monitor='val_acc', min_delta=0.01, patience=2, mode='max')
-    history = model.fit(x_train, y_train, batch_size=32, epochs=i, callbacks=[early_stopping], verbose=1,
-                        validation_split=0.1)
+    early_stopping = EarlyStopping(monitor='val_accuracy', min_delta=0.01, patience=2, mode='max')
+    history = model.fit(x_train, y_train, batch_size=36, epochs=i, callbacks=[early_stopping], verbose=1,
+                        validation_split=validation_split_rate)
 
     # 4. 训练
     # history = model.fit(x_train, y_train, batch_size=64, epochs=i, validation_data=(x_test, y_test))
@@ -71,7 +76,7 @@ def trainModel(x_train, y_train, size):
         height_shift_range=0.15,  # 同上，只不过这里是垂直
         horizontal_flip=False,  # 是否进行随机水平翻转
         vertical_flip=False,  # 是否进行随机垂直翻转
-        validation_split=0.1
+        # validation_split=0.1
     )
 
     # # 计算整个训练样本集的数量以用于特征值归一化、ZCA白化等处理
@@ -99,21 +104,44 @@ def trainModel(x_train, y_train, size):
     plt.legend(['Train', 'Test'], loc='upper left')
     plt.show()
 
-    # 5. 评估模型
-    x_test = x_train
-    y_test = y_train
+    # x_test = []
+    # y_test = []
+
+    data_size = len(y_train)
+    print("train  len  = ", data_size)
+
+    # for data_index in range(data_size):
+    #     if (data_index + 1) % 10 == 0:
+    #         x_test.append(x_train[data_index])
+    #         y_test.append(y_train[data_index])
+
+    # count_data = 0
+    # for data_index in x_train:
+    #     count_data += 1
+    #     if count_data % 10 == 0:
+    #         x_test.append(data_index)
+    #
+    # count_label = 0
+    # for label_index in y_train:
+    #     count_label += 1
+    #     if count_label % 10 == 0:
+    #         y_test.append(label_index)
+
+    print("x_test size = ", len(x_test))
+    print("y_test size = ", len(y_test))
+
     score = model.evaluate(x_test, y_test)
     print('acc', score[1])
 
     # saving the model
-    save_dir = "./modelSave"
-    model_name = "model"+str(i) + "_" + str(score[1]) + '.h5'
+    save_dir = Global_Params.M_model_save_path
+    model_name = "model"+str(i) + "_" + str(score[1]) + "w.h5"
     model_path = os.path.join(save_dir, model_name)
 
     model.save(model_path)
 
-    if not os.path.exists(save_dir): #判断是否存在
-        os.makedirs(save_dir) #不存在则创建
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
 
     print('Saved trained model at %s ' % model_path)
     print("train model done!")

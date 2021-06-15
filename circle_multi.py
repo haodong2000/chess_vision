@@ -11,14 +11,15 @@ import numpy as np
 from PIL import Image
 
 import algorithm
+import Global_Params
 
 from load_data import str2int
 
-img_height = -1
-img_width = -1
+# img_height = -1
+# img_width = -1
 
 def read_origin_image():
-    origin_image_path = "./test_image_process/imageProcessTest"
+    origin_image_path = Global_Params.M_imageProcessTest_path
     # origin_image_path = "./test_image_process/systemCamTest"
     images = os.listdir(origin_image_path)
     count_image = 0
@@ -62,7 +63,7 @@ def hough_circle(origin_image_list, count_image):
 
         flag = cv2.waitKey(0)
         if flag == 13: # press enter to save the image
-            save_path = "./test_image_process/imageProcessTest_ans/grey_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
+            save_path = Global_Params.M_imageProcessTestAns_path + "/grey_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
             cv2.imwrite(save_path, gray_origin_image)
             print(save_path, " saved")
             cv2.destroyWindow(window_name)
@@ -125,7 +126,7 @@ def hough_circle(origin_image_list, count_image):
 
         flag = cv2.waitKey(0)
         if flag == 13: # press enter to save the image
-            save_path = "./test_image_process/imageProcessTest_ans/circle_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
+            save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
             cv2.imwrite(save_path, origin_image)
             print(save_path, " saved")
             cv2.destroyWindow(window_name)
@@ -146,7 +147,7 @@ def hough_circle(origin_image_list, count_image):
                                     only_one_x[index_circle]:only_one_x[index_circle] + only_one_w[index_circle]]
             cv2.imshow(str(index_circle + 1) + " <crop>", crop_cv_im)
             print(str(index_circle + 1), "  \t<crop>  ", crop_cv_im.shape)
-            data_no_use_path = "./test_image_process/image_circle_test"
+            data_no_use_path = Global_Params.M_image_circle_test_path
             flag = cv2.waitKey(0)
             if flag == 27:
                 cv2.destroyWindow(str(index_circle + 1) + " <crop>")
