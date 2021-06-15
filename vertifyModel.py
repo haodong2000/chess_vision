@@ -58,9 +58,9 @@ def returnPreImage(testMatch):
     data = filter.RedBlackBoost(data)
     data = data/255.0
 
-    index = np.arange(data.shape[0])
-    np.random.shuffle(index)
-    data = data[index, :, :, :]
+    # index = np.arange(data.shape[0])
+    # np.random.shuffle(index)
+    # data = data[index, :, :, :]
 
     print("Test image reading done!")
     return data # 里面存放图片数据
