@@ -66,7 +66,7 @@ def RedBlackBoost(img_set):
                 break
 
         if red_flag is True:    # 红棋子红色增强
-            print("RedBlackBoost   \t\t<", count, ">   \t\tred")
+            # print("RedBlackBoost   \t\t<", count, ">   \t\tred")
             for i in range(height):
                 for j in range(width):
                     if ((0 <= hsv_img[i, j, 0] <= 10) or (310 <= hsv_img[i, j, 0] <= 360)) and (70 <= hsv_img[i, j, 1]*255 <= 255) and (50 <= hsv_img[i, j, 2] <= 255):
@@ -74,7 +74,7 @@ def RedBlackBoost(img_set):
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
         else:                   # 黑棋子黑色增强
-            print("RedBlackBoost   \t\t<", count, ">   \t\tblack")
+            # print("RedBlackBoost   \t\t<", count, ">   \t\tblack")
             for i in range(height):
                 for j in range(width):
                     if algorithm.outOfRadius(j, i):

@@ -31,11 +31,32 @@ CHESS_TABLE = [
     "r_sol_",
 ]
 
+CHESS_CN = [
+    "一",
+    "将",
+    "士",
+    "象",
+    "馬",
+    "車",
+    "砲",
+    "卒",
+    "帅",
+    "仕",
+    "相",
+    "傌",
+    "俥",
+    "炮",
+    "兵"
+]
+
 def str2int(string):
     return CHESS_TABLE.index(string)
 
 def int2str(index):
     return CHESS_TABLE[index]
+
+def int2cn(index):
+    return CHESS_CN[index]
 
 def docuChessInfo(pathChessChoose):
     # environment

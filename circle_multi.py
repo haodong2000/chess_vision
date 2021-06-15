@@ -12,11 +12,17 @@ from PIL import Image
 
 import algorithm
 import Global_Params
+from keras.models import load_model
+from keras.preprocessing.image import img_to_array
+
+import filter
 
 from load_data import str2int
 
 # img_height = -1
 # img_width = -1
+
+CHESS_IMAGE_SHOW = False
 
 def read_origin_image():
     origin_image_path = Global_Params.M_imageProcessTest_path
@@ -40,6 +46,24 @@ def read_origin_image():
     return origin_image_list, count_image
 
 def hough_circle(origin_image_list, count_image):
+    save_dir = Global_Params.M_model_save_path + "/"  # the model stored there
+    # sort by last modified time
+    model_lists = os.listdir(save_dir)
+    model_lists = sorted(model_lists,
+                         key=lambda files: os.path.getmtime(os.path.join(save_dir, files)),
+                         reverse=False)
+    model_path_vertify = ""
+    for modelLists in os.listdir(save_dir):
+        model_path_vertify = os.path.join(save_dir, modelLists)
+        print(model_path_vertify)
+
+    if model_path_vertify == "": # if the pwd is NULL
+        print("No model saved!")
+        exit()
+
+    model = load_model(model_path_vertify)
+    print("model loaded!")
+
     for index in range(0, count_image):
         origin_image = cv2.imread(origin_image_list[index], cv2.IMREAD_COLOR)
 
@@ -59,18 +83,19 @@ def hough_circle(origin_image_list, count_image):
 
         # print("grey image show: index = ", index)
         window_name = "grey of " + origin_image_list[index]
-        cv2.imshow(window_name, gray_origin_image)
 
-        flag = cv2.waitKey(0)
-        if flag == 13: # press enter to save the image
-            save_path = Global_Params.M_imageProcessTestAns_path + "/grey_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
-            cv2.imwrite(save_path, gray_origin_image)
-            print(save_path, " saved")
-            cv2.destroyWindow(window_name)
-        elif flag == 27:
-            cv2.destroyWindow(window_name)
-        else:
-            print("ERROR: file circle.py, line 56, flag invalid!")
+        if CHESS_IMAGE_SHOW:
+            cv2.imshow(window_name, gray_origin_image)
+            flag = cv2.waitKey(0)
+            if flag == 13: # press enter to save the image
+                save_path = Global_Params.M_imageProcessTestAns_path + "/grey_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
+                cv2.imwrite(save_path, gray_origin_image)
+                print(save_path, " saved")
+                cv2.destroyWindow(window_name)
+            elif flag == 27:
+                cv2.destroyWindow(window_name)
+            else:
+                print("ERROR: file circle.py, line 56, flag invalid!")
 
         # create mask
         mask = []
@@ -123,19 +148,24 @@ def hough_circle(origin_image_list, count_image):
 
         # print("hough circle image show: index = ", index)
         window_name = "hough circle of " + origin_image_list[index] # or np.array(origin_image_list)[index]
-        cv2.imshow(window_name, temp_origin)
-        print(str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg")
+        # cv2.imshow(window_name, temp_origin)
+        # print(str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg")
 
-        flag = cv2.waitKey(0)
-        if flag == 13: # press enter to save the image
-            save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
-            cv2.imwrite(save_path, temp_origin)
-            print(save_path, " saved")
-            cv2.destroyWindow(window_name)
-        elif flag == 27:
-            cv2.destroyWindow(window_name)
-        else:
-            print("ERROR: file circle.py, line 88, flag invalid!")
+        if CHESS_IMAGE_SHOW:
+            cv2.imshow(window_name, temp_origin)
+            flag = cv2.waitKey(0)
+            if flag == 13: # press enter to save the image
+                save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
+                cv2.imwrite(save_path, temp_origin)
+                print(save_path, " saved")
+                cv2.destroyWindow(window_name)
+            elif flag == 27:
+                cv2.destroyWindow(window_name)
+            else:
+                print("ERROR: file circle.py, line 88, flag invalid!")
+
+        data = []
+        chess_int = []
 
         for index_circle in range(count_circle):
             # Copy that image using that mask
@@ -147,29 +177,49 @@ def hough_circle(origin_image_list, count_image):
             # contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             crop_cv_im = crop_cv_im[only_one_y[index_circle]:only_one_y[index_circle] + only_one_h[index_circle],
                                     only_one_x[index_circle]:only_one_x[index_circle] + only_one_w[index_circle]]
-            cv2.imshow(str(index_circle + 1) + " <crop>", crop_cv_im)
-            print(str(index_circle + 1), "  \t<crop>  ", crop_cv_im.shape)
+            # cv2.imshow(str(index_circle + 1) + " <crop>", crop_cv_im)
+            # print(str(index_circle + 1), "  \t<crop>  ", crop_cv_im.shape)
             data_no_use_path = Global_Params.M_image_circle_test_path
-            flag = cv2.waitKey(0)
-            if flag == 27:
-                cv2.destroyWindow(str(index_circle + 1) + " <crop>")
-            elif flag == 13:
-                new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(index) + ".jpg"
-                cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
-                cv2.destroyWindow(str(index_circle + 1) + " <crop>")
-                print("===============" + new_origin_name + "==SAVED===================")
-            else:
-                print("generate_data.py, line:24, esc expected")
 
-    return chess_x, chess_y
+            if CHESS_IMAGE_SHOW:
+                cv2.imshow(str(index_circle + 1) + " <crop>", crop_cv_im)
+                flag = cv2.waitKey(0)
+                if flag == 27:
+                    cv2.destroyWindow(str(index_circle + 1) + " <crop>")
+                elif flag == 13:
+                    new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(index) + ".jpg"
+                    cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
+                    cv2.destroyWindow(str(index_circle + 1) + " <crop>")
+                    print("===============" + new_origin_name + "==SAVED===================")
+                else:
+                    print("generate_data.py, line:24, esc expected")
+
+            crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
+            crop_cv_im = img_to_array(crop_cv_im)
+            data.append(crop_cv_im)
+            data = np.array(data)
+            data = filter.RedBlackBoost(data)
+            data = data / 255.0
+            crop_cv_im = data[0]
+            crop_cv_im = np.expand_dims(crop_cv_im, 0)  # 扩展至四维
+            output = model.predict(crop_cv_im)
+            # print(str(index_circle + 1) + " <crop>    CNN: ", output.argmax())
+            chess_int.append(output.argmax())
+            data = [] # clear
+
+        print("chess_x.size   = ", len(chess_x))
+        print("chess_y.size   = ", len(chess_y))
+        print("chess_int.size = ", len(chess_int))
+
+    return chess_x, chess_y, chess_int # only one picture!!!
 
 
 
 # use for debug
 def main():
     oriImg, cnt = read_origin_image()
-    chess_x, chess_y = hough_circle(oriImg, cnt)
-    algorithm.chess_board_generator(chess_x, chess_y)
+    chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
+    algorithm.chess_board_generator(chess_x, chess_y, chess_int)
 
 # 调用函数
 if __name__ == '__main__':

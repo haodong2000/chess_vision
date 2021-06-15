@@ -11,9 +11,10 @@ import numpy as np
 from PIL import Image
 
 import Global_Params
+import load_data
 
 
-def chess_board_generator(chess_x, chess_y):
+def chess_board_generator(chess_x, chess_y, chess_int):
     print("size  -> ", len(chess_x), ", ", len(chess_y))
     size_x = len(chess_x)
     size_y = len(chess_y)
@@ -35,7 +36,7 @@ def chess_board_generator(chess_x, chess_y):
     for i in range(9):
         __row = []
         for j in range(10):
-            __row.append(0)
+            __row.append("__")
         __board.append(__row)
 
     # for i in range(9):
@@ -44,13 +45,32 @@ def chess_board_generator(chess_x, chess_y):
     for index in range(size_x):
         x = round((chess_x[index] - left) / cube_width)
         y = round((chess_y[index] - up) / cube_height)
-        __board[x][y] = 1
+        __board[x][y] = "XX"
         # print(x, "", y)
 
     # print(__board)
 
     for i in range(9):
         print(__board[i])
+
+    __board_CN = []
+    for i in range(9):
+        __row = []
+        for j in range(10):
+            __row.append(load_data.int2cn(0))
+        __board_CN.append(__row)
+
+    # print(chess_int)
+    print(" ")
+
+    for index_cn in range(size_x):
+        x = round((chess_x[index_cn] - left) / cube_width)
+        y = round((chess_y[index_cn] - up) / cube_height)
+        str_cn = load_data.int2cn(chess_int[index_cn] + 1)
+        __board_CN[x][y] = str_cn
+
+    for i in range(9):
+        print(__board_CN[i])
 
 
 def outOfRadius(width, height):
