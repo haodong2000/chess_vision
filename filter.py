@@ -1,6 +1,9 @@
 import numpy as np
 import cv2
 
+import Global_Params
+import algorithm
+
 
 def RgbMedianFilter(img_set, size):
     """
@@ -46,6 +49,7 @@ def RedBlackBoost(img_set):
     threshold = 0.02
     idx = 0
     count = 0
+    radius = Global_Params.M_norm_size/2
     for img in img_set:
         count += 1
         red_cnt = 0
@@ -73,16 +77,18 @@ def RedBlackBoost(img_set):
             print("RedBlackBoost   \t\t<", count, ">   \t\tblack")
             for i in range(height):
                 for j in range(width):
-                    if (0 <= hsv_img[i, j, 0] <= 360) and (0 <= hsv_img[i, j, 1]*255 <= 255) and (0 <= hsv_img[i, j, 2] <= 120):
+                    if algorithm.outOfRadius(j, i):
+                        boosted_img_set[idx, i, j, :] = [255, 255, 255]
+                        continue
+                    if (0 <= hsv_img[i, j, 0] <= 360) and (0 <= hsv_img[i, j, 1]*255 <= 255) and (0 <= hsv_img[i, j, 2] <= 180):
                         boosted_img_set[idx, i, j, :] = [0, 0, 0]
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
-        # if idx/359 == int(idx/359):
+        # if idx/359 == int(idx/359) and idx != 0:
         #    cv2.imshow("img", img/255.0)
         #    cv2.imshow("boosted_img", boosted_img_set[idx]/255.0)
         #    cv2.waitKey(0)
         #    cv2.destroyAllWindows()
-        # print("img" + str(idx) + " OK.")
         idx += 1
 
     del img_set

@@ -97,6 +97,8 @@ def hough_circle(origin_image_list, count_image):
         only_one_h = []
         chess_x = []
         chess_y = []
+        temp_origin = cv2.imread(origin_image_list[index], cv2.IMREAD_COLOR)
+
         if circles is not None:
             circles = np.uint16(np.around(circles))
             for indexCircle in circles[0, :]:
@@ -110,7 +112,7 @@ def hough_circle(origin_image_list, count_image):
                 chess_x.append(indexCircle[0])
                 chess_y.append(indexCircle[1])
                 radius = indexCircle[2] # circle radius
-                cv2.circle(origin_image, center, radius, (255, 0, 255), 3)
+                cv2.circle(temp_origin, center, radius, (255, 0, 255), 3)
                 mask_temp = np.zeros((pil_origin_image.size[1], pil_origin_image.size[0]), np.uint8)
                 cv2.circle(mask_temp, center, radius, (255, 255, 255), thickness=-1)
                 mask.append(mask_temp)
@@ -121,13 +123,13 @@ def hough_circle(origin_image_list, count_image):
 
         # print("hough circle image show: index = ", index)
         window_name = "hough circle of " + origin_image_list[index] # or np.array(origin_image_list)[index]
-        cv2.imshow(window_name, origin_image)
+        cv2.imshow(window_name, temp_origin)
         print(str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg")
 
         flag = cv2.waitKey(0)
         if flag == 13: # press enter to save the image
             save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
-            cv2.imwrite(save_path, origin_image)
+            cv2.imwrite(save_path, temp_origin)
             print(save_path, " saved")
             cv2.destroyWindow(window_name)
         elif flag == 27:

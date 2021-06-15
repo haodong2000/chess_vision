@@ -30,6 +30,8 @@ def load_data(image_paths, norm_size):
     test_data = []
     test_label = []
 
+    classes = Global_Params.M_num_classes
+
     count_image = 0
     for each_image in image_paths:
         count_image += 1
@@ -49,14 +51,14 @@ def load_data(image_paths, norm_size):
     data = filter.RedBlackBoost(data)
     data = data/255.0
     label = np.array(label)
-    label = to_categorical(label, num_classes=14+1)
+    label = to_categorical(label, num_classes=classes)
 
     test_data = np.array(test_data)
     print("test_data shape = ", test_data.shape, " ===============================")
     test_data = filter.RedBlackBoost(test_data)
     test_data = test_data/255.0
     test_label = np.array(test_label)
-    test_label = to_categorical(test_label, num_classes=14+1)
+    test_label = to_categorical(test_label, num_classes=classes)
 
     index = np.arange(data.shape[0])
     np.random.shuffle(index)
@@ -70,8 +72,6 @@ def load_data(image_paths, norm_size):
 
     print("Data loaded.")
     return data, label, test_data, test_label
-
-
 
 
 def main(): # 主函数

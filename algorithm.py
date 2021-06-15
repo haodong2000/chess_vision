@@ -10,6 +10,9 @@ import datetime
 import numpy as np
 from PIL import Image
 
+import Global_Params
+
+
 def chess_board_generator(chess_x, chess_y):
     print("size  -> ", len(chess_x), ", ", len(chess_y))
     size_x = len(chess_x)
@@ -48,6 +51,16 @@ def chess_board_generator(chess_x, chess_y):
 
     for i in range(9):
         print(__board[i])
+
+
+def outOfRadius(width, height):
+    img_width = Global_Params.M_norm_size
+    img_height = Global_Params.M_norm_size
+    radius = Global_Params.M_norm_size/2
+    if (width - radius)*(width - radius) + (height - radius)*(height - radius) > radius*radius:
+        return True
+    return False
+
 
 
 # def cal_axis(input_x, input_y):

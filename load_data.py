@@ -34,6 +34,9 @@ CHESS_TABLE = [
 def str2int(string):
     return CHESS_TABLE.index(string)
 
+def int2str(index):
+    return CHESS_TABLE[index]
+
 def docuChessInfo(pathChessChoose):
     # environment
     print("tensorflow->", tf.__version__)
