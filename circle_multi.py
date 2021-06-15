@@ -10,6 +10,10 @@ import datetime
 import numpy as np
 from PIL import Image
 
+import algorithm
+
+from load_data import str2int
+
 img_height = -1
 img_width = -1
 
@@ -90,6 +94,8 @@ def hough_circle(origin_image_list, count_image):
         only_one_y = []
         only_one_w = []
         only_one_h = []
+        chess_x = []
+        chess_y = []
         if circles is not None:
             circles = np.uint16(np.around(circles))
             for indexCircle in circles[0, :]:
@@ -100,6 +106,8 @@ def hough_circle(origin_image_list, count_image):
                 # print("count_circle = ", count_circle)
                 count_circle = count_circle + 1
                 center = (indexCircle[0], indexCircle[1]) # circle center
+                chess_x.append(indexCircle[0])
+                chess_y.append(indexCircle[1])
                 radius = indexCircle[2] # circle radius
                 cv2.circle(origin_image, center, radius, (255, 0, 255), 3)
                 mask_temp = np.zeros((pil_origin_image.size[1], pil_origin_image.size[0]), np.uint8)
@@ -150,12 +158,15 @@ def hough_circle(origin_image_list, count_image):
             else:
                 print("generate_data.py, line:24, esc expected")
 
+    return chess_x, chess_y
+
 
 
 # use for debug
 def main():
     oriImg, cnt = read_origin_image()
-    hough_circle(oriImg, cnt)
+    chess_x, chess_y = hough_circle(oriImg, cnt)
+    algorithm.chess_board_generator(chess_x, chess_y)
 
 # 调用函数
 if __name__ == '__main__':
