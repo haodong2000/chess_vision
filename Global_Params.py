@@ -9,7 +9,8 @@ M_test_path = "./test"
 
 M_number_angle = 360
 
-M_imageProcessTest_path = "./test_image_process/imageProcessTest"
+M_imageProcessTest_path = "./webcam"
+# M_imageProcessTest_path_old = "./test_image_process/imageProcessTest"
 M_imageProcessTestAns_path = "./test_image_process/imageProcessTest_ans"
 M_image_circle_test_path = "./test_image_process/image_circle_test"
 
