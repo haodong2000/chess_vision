@@ -27,7 +27,7 @@ CHESS_IMAGE_SHOW = False
 def read_origin_image():
     origin_image_path = Global_Params.M_imageProcessTest_path
     # origin_image_path = "./test_image_process/systemCamTest"
-    
+
     images = os.listdir(origin_image_path)
     images = sorted(images,
                     key=lambda files: os.path.getmtime(os.path.join(origin_image_path, files)),
@@ -72,6 +72,7 @@ def hough_circle(origin_image_list, count_image):
     # for index in range(0, count_image):
     index = 0
     origin_image = cv2.imread(origin_image_list[index], cv2.IMREAD_COLOR)
+    print(origin_image_list[index])
 
     if origin_image is None:
         print("ERROR: circle.py line: 36, image loading failed!")
