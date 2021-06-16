@@ -31,4 +31,6 @@ M_validation_split_rate = 0.1
 
 M_num_classes = 14 + 1
 
+M_valid_chess_number = 32
+
 M_norm_size = 60

@@ -18,7 +18,7 @@ def chess_board_generator(chess_x, chess_y, chess_int):
     print("size  -> ", len(chess_x), ", ", len(chess_y))
     size_x = len(chess_x)
     size_y = len(chess_y)
-    if size_y == 32 and size_x == 32:
+    if size_y == Global_Params.M_valid_chess_number and size_x == Global_Params.M_valid_chess_number:
         print("Valid Image")
     else:
         print("size_y == 32 and size_x == 32 isn't satisfied!")
