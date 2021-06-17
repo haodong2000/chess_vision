@@ -34,3 +34,6 @@ M_num_classes = 14 + 1
 M_valid_chess_number = 32
 
 M_norm_size = 60
+
+M_HOST_TEST = "127.0.0.99"
+M_PORT_TEST = 6666
