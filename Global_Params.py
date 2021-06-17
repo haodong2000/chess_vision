@@ -35,5 +35,5 @@ M_valid_chess_number = 32
 
 M_norm_size = 60
 
-M_HOST_TEST = "127.0.0.99"
+M_HOST_TEST = "127.0.0.1"  # IVP4 localHost
 M_PORT_TEST = 6666
