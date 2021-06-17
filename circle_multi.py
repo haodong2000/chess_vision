@@ -16,6 +16,8 @@ from keras.models import load_model
 from keras.preprocessing.image import img_to_array
 
 import filter
+import server_one
+import time
 
 from load_data import str2int
 
@@ -218,15 +220,39 @@ def hough_circle(origin_image_list, count_image):
     print("chess_y.size   = ", len(chess_y))
     print("chess_int.size = ", len(chess_int))
 
+    del model
     return chess_x, chess_y, chess_int # only one picture!!!
-
 
 
 # use for debug
 def main():
-    oriImg, cnt = read_origin_image()
-    chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
-    algorithm.chess_board_generator(chess_x, chess_y, chess_int)
+    count = 0
+    while True:
+        count += 1
+        print("the number = ", count)
+        oriImg, cnt = read_origin_image()
+        chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
+        print("size  -> ", len(chess_x), ", ", len(chess_y))
+        size_x = len(chess_x)
+        size_y = len(chess_y)
+        size_int = len(chess_int)
+        if size_y == Global_Params.M_valid_chess_number and \
+                size_x == Global_Params.M_valid_chess_number and \
+                size_int == Global_Params.M_valid_chess_number:
+            print("Valid Image")
+        else:
+            print("inValid Image")
+            continue
+        gameIsOn, whoWin = algorithm.chess_board_generator(chess_x, chess_y, chess_int)
+        if gameIsOn == False:
+            if whoWin == 0:
+                print("Game Over!  Black Win!")
+            if whoWin == 1:
+                print("Game Over!  Red Win!")
+            break
+        time.sleep(0.5)
+        del size_x, size_y, size_int, chess_x, chess_y, chess_int, gameIsOn, whoWin, oriImg, cnt
+
 
 # 调用函数
 if __name__ == '__main__':

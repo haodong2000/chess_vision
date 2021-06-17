@@ -13,16 +13,13 @@ from PIL import Image
 import Global_Params
 import load_data
 
+__lastBoard = []
+__curBoard = []
+
 
 def chess_board_generator(chess_x, chess_y, chess_int):
-    print("size  -> ", len(chess_x), ", ", len(chess_y))
     size_x = len(chess_x)
     size_y = len(chess_y)
-    if size_y == Global_Params.M_valid_chess_number and size_x == Global_Params.M_valid_chess_number:
-        print("Valid Image")
-    else:
-        print("size_y == 32 and size_x == 32 isn't satisfied!")
-        return -777
     up = min(chess_y)
     down = max(chess_y)
     left = min(chess_x)
@@ -63,14 +60,57 @@ def chess_board_generator(chess_x, chess_y, chess_int):
     # print(chess_int)
     print(" ")
 
+    __curBoard.clear()
     for index_cn in range(size_x):
         x = round((chess_x[index_cn] - left) / cube_width)
         y = round((chess_y[index_cn] - up) / cube_height)
         str_cn = load_data.int2cn(chess_int[index_cn] + 1)
         __board_CN[x][y] = str_cn
+        msg = load_data.int2str(chess_int[index_cn]) + str(x) + str(y) + " "
+        __curBoard.append(msg)
 
     for i in range(9):
         print(__board_CN[i])
+
+    __isBoardChanged = compare()
+
+    blackAlive = False
+    redAlive = False
+    for index_cn in range(size_x):
+        if (chess_int[index_cn] + 1) == 1:
+            blackAlive = True
+        if (chess_int[index_cn] + 1) == 8:
+            redAlive = True
+
+    GameIsOn = blackAlive and redAlive
+
+    whoWin = 2
+    if GameIsOn == False:
+        if blackAlive:
+            whoWin = 0
+        if redAlive:
+            whoWin = 1
+
+    return GameIsOn, whoWin
+
+
+def compare():
+    size_last = len(__lastBoard)
+    size_cur = len(__curBoard)
+    if size_cur != size_last:
+        return True
+
+    for index in range(size_cur):
+        cur_msg = __curBoard[index]
+        for index_2 in range(size_last):
+            if cur_msg != __lastBoard[index_2]:
+                return True
+
+    __lastBoard.clear()
+    for index in range(size_cur):
+        cur_msg = __curBoard[index]
+        __lastBoard.append(cur_msg)
+    return False
 
 
 def outOfRadius(width, height):
