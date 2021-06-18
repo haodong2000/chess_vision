@@ -153,7 +153,7 @@ def hough_circle(origin_image_list, count_image):
     if count_circle == 0:
         print("count_circle = 0, no circles found!")
 
-    print("count_circle = ", count_circle)
+    print("count_circle   = ", count_circle)
 
     # print("hough circle image show: index = ", index)
     window_name = "hough circle of " + origin_image_list[index] # or np.array(origin_image_list)[index]
@@ -224,34 +224,38 @@ def hough_circle(origin_image_list, count_image):
     return chess_x, chess_y, chess_int # only one picture!!!
 
 
+def generate_board_message(count):
+    print("Chess Detection Count = ", count)
+    oriImg, cnt = read_origin_image()
+    chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
+    # print("size  -> ", len(chess_x), ", ", len(chess_y))
+    size_x = len(chess_x)
+    size_y = len(chess_y)
+    size_int = len(chess_int)
+    __isValid = True
+    if size_y == Global_Params.M_valid_chess_number and \
+            size_x == Global_Params.M_valid_chess_number and \
+            size_int == Global_Params.M_valid_chess_number:
+        print("Valid Image")
+    else:
+        print("inValid Image")
+        __isValid = False
+        return []
+    gameIsOn, whoWin, curBoard = algorithm.chess_board_generator(chess_x, chess_y, chess_int)
+    if gameIsOn == False:
+        if whoWin == 0:
+            print("Game Over!  Black Win!")
+        if whoWin == 1:
+            print("Game Over!  Red Win!")
+    time.sleep(0.5)
+    del size_x, size_y, size_int, chess_x, chess_y, chess_int, gameIsOn, whoWin, oriImg, cnt
+    return curBoard
+
+
+
 # use for debug
 def main():
-    count = 0
-    while True:
-        count += 1
-        print("the number = ", count)
-        oriImg, cnt = read_origin_image()
-        chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
-        print("size  -> ", len(chess_x), ", ", len(chess_y))
-        size_x = len(chess_x)
-        size_y = len(chess_y)
-        size_int = len(chess_int)
-        if size_y == Global_Params.M_valid_chess_number and \
-                size_x == Global_Params.M_valid_chess_number and \
-                size_int == Global_Params.M_valid_chess_number:
-            print("Valid Image")
-        else:
-            print("inValid Image")
-            continue
-        gameIsOn, whoWin = algorithm.chess_board_generator(chess_x, chess_y, chess_int)
-        if gameIsOn == False:
-            if whoWin == 0:
-                print("Game Over!  Black Win!")
-            if whoWin == 1:
-                print("Game Over!  Red Win!")
-            break
-        time.sleep(0.5)
-        del size_x, size_y, size_int, chess_x, chess_y, chess_int, gameIsOn, whoWin, oriImg, cnt
+    generate_board_message(1)
 
 
 # 调用函数

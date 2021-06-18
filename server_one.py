@@ -50,25 +50,32 @@ def deal_data(conn, addr):
     print("Accept new connection from {0}".format(addr))
     databack = ("Hi QT " + format(addr) + ", Welcome to the server! ").encode()
     conn.send(databack)
+    count = 0
     while True:
         data = conn.recv(1024) # 1024 is the longest length of string
         print('{0} client send data is {1}'.format(addr, data.decode()))
-        time.sleep(0.01)
+        time.sleep(0.5)
         if data.decode() == "exit" or not data:
             print('{0} connection close'.format(addr))
             conn.send(bytes('Connection closed!'.encode("UTF-8")))
             break
-        backMsg = generate_message()
+        __curBoard = []
+        count += 1
+        __curBoard = circle_multi.generate_board_message(count)
+        if len(__curBoard) > 0:
+            backMsg = generate_message(__curBoard)
+        else:
+            backMsg = "Null"
         conn.send(bytes(backMsg, "UTF-8"))
         # conn.send(bytes("Hello QT, from: {0}", "UTF-8"))
     conn.close()
 
 
-def generate_message():
-    ans = "B: "
-    size = len(algorithm.__curBoard)
+def generate_message(__curBoard):
+    ans = ""
+    size = len(__curBoard)
     for index in range(size):
-        ans += algorithm.__curBoard[index]
+        ans += __curBoard[index]
     return ans
 
 
