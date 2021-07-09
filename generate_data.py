@@ -136,7 +136,7 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
                 else:
                     print("generate_data.py, line:24, esc expected")
 
-        ret_img.append(crop_cv_im)
+        ret_img.append(crop_cv_im)  # ensure that only one image is stored
 
     return ret_img
 

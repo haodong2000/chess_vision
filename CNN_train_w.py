@@ -20,7 +20,6 @@ import numpy as np
 import math
 import os
 
-import tkinter
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt # plt 用于显示图片
