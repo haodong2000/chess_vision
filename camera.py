@@ -53,10 +53,9 @@ def getOriginImage():
             continue
 
 
-# use for debug
 def main():
     getOriginImage()
 
-# 调用函数
+
 if __name__ == '__main__':
     main()
