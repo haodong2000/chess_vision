@@ -91,6 +91,7 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
                 mask.append(mask_temp)
         if count_circle == 0:
             print("count_circle = 0, no circles found!")
+            continue
         else:
             print("count_circle = ", count_circle)
 
