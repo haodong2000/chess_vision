@@ -3,7 +3,7 @@
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPool2D, Activation
 from keras.layers import Dense, Dropout, Flatten
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 # from keras.optimizers import SGD
 from keras.preprocessing.image import ImageDataGenerator
 

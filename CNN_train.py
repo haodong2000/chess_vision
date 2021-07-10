@@ -7,7 +7,7 @@ import numpy as np
 import tensorflow as tf
 import cv2
 import os
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 from keras.preprocessing.image import img_to_array
 from keras.callbacks import EarlyStopping
 from imutils import paths
