@@ -233,14 +233,15 @@ def generate_board_message(count):
     size_y = len(chess_y)
     size_int = len(chess_int)
     __isValid = True
-    if size_y == Global_Params.M_valid_chess_number and \
-            size_x == Global_Params.M_valid_chess_number and \
-            size_int == Global_Params.M_valid_chess_number:
-        print("Valid Image")
-    else:
-        print("inValid Image")
-        __isValid = False
-        return []
+    # 2021/07/14 we will detect the validation of image in QT
+    # if size_y == Global_Params.M_valid_chess_number and \
+    #         size_x == Global_Params.M_valid_chess_number and \
+    #         size_int == Global_Params.M_valid_chess_number:
+    #     print("Valid Image")
+    # else:
+    #     print("inValid Image")
+    #     __isValid = False
+    #     return []
     gameIsOn, whoWin, curBoard = algorithm.chess_board_generator(chess_x, chess_y, chess_int)
     if gameIsOn == False:
         if whoWin == 0:
