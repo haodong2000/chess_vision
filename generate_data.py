@@ -16,7 +16,7 @@ from PIL import Image
 import Global_Params
 
 number_angle = Global_Params.M_number_angle
-IMAGE_SHOW = False
+IMAGE_SHOW = True
 
 def clear(data_gen_path, data_no_use_path):
     data_no_use = os.listdir(data_no_use_path)
@@ -63,10 +63,10 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
                                    cv2.HOUGH_GRADIENT, 
                                    1.0, 
                                    im.size[0]/8.0, 
-                                   param1=300,
-                                   param2=50,
-                                   minRadius=round(min(im.size[0], im.size[1])/4.0),
-                                   maxRadius=round(max(im.size[0], im.size[1])))
+                                   param1=450,
+                                   param2=30,
+                                   minRadius=round(min(im.size[0], im.size[1])/50.0),
+                                   maxRadius=round(max(im.size[0], im.size[1])/20.0))
         
         # only one circle
         only_one_x = []
