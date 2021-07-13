@@ -16,7 +16,7 @@ from PIL import Image
 import Global_Params
 
 number_angle = Global_Params.M_number_angle
-IMAGE_SHOW = True
+IMAGE_SHOW = False
 
 def clear(data_gen_path, data_no_use_path):
     data_no_use = os.listdir(data_no_use_path)
