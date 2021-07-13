@@ -24,7 +24,7 @@ from load_data import str2int
 # img_height = -1
 # img_width = -1
 
-CHESS_IMAGE_SHOW = True
+CHESS_IMAGE_SHOW = False
 
 def read_origin_image():
     origin_image_path = Global_Params.M_imageProcessTest_path
