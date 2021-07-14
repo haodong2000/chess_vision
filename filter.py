@@ -91,10 +91,10 @@ def RedBlackBoost(img_set):
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
         if idx/359 == int(idx/359) and idx != 0:
             print("RedBlackBoost Processing...")
-            cv2.imshow("img", img/255.0)
-            cv2.imshow("boosted_img", boosted_img_set[idx]/255.0)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            # cv2.imshow("img", img/255.0)
+            # cv2.imshow("boosted_img", boosted_img_set[idx]/255.0)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
         idx += 1
 
     del img_set
