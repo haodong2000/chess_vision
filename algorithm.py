@@ -21,10 +21,10 @@ def chess_board_generator(chess_x, chess_y, chess_int):
     down = max(chess_y)
     left = min(chess_x)
     right = max(chess_x)
-    # print("board ->", up, ", ", down, ", ", left, ", ", right)
+    print("board ->", up, ", ", down, ", ", left, ", ", right)
     cube_width = round((down - up)/9.0)
     cube_height = round((right - left)/8.0)
-    # print("cube  -> ", cube_width, ", ", cube_height)
+    print("cube  -> ", cube_width, ", ", cube_height)
 
     __board = []
     for i in range(9):
