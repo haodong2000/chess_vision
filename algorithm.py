@@ -114,6 +114,7 @@ def outOfRadius(width, height):
     img_width = Global_Params.M_norm_size
     img_height = Global_Params.M_norm_size
     radius = Global_Params.M_norm_size/2
+    radius *= 0.90  # get rid of the circle edge of chesses
     if (width - radius)*(width - radius) + (height - radius)*(height - radius) > radius*radius:
         return True
     return False
