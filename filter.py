@@ -73,7 +73,7 @@ def RedBlackBoost(img_set):
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
                         continue
                     if ((0 <= hsv_img[i, j, 0] <= 30) or (300 <= hsv_img[i, j, 0] <= 360)) and \
-                            (70 <= hsv_img[i, j, 1]*255 <= 255) and (75 <= hsv_img[i, j, 2] <= 255):
+                            (75 <= hsv_img[i, j, 1]*255 <= 255) and (80 <= hsv_img[i, j, 2] <= 255):
                         boosted_img_set[idx, i, j, :] = [0, 0, 255]
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
