@@ -6,6 +6,9 @@ import os # call system API
 import datetime
 from PIL import Image
 
+import numpy as np
+import yaml
+
 import Global_Params
 
 def getOriginImage():
@@ -26,8 +29,23 @@ def getOriginImage():
     ImageStorePath = Global_Params.M_origin_image_path
     count = 0
 
+    skip_lines = 0
+    with open('./fisheye_parameter.yaml') as infile:
+        for i in range(skip_lines):
+            _ = infile.readline()
+        data = yaml.load(infile)
+
     while(True):
         ret, origin_image = capture.read()
+
+        # # 2021/07/15 fish eye
+        # DIM = (1920, 1080)
+        # [fu, fv, pu, pv] = data['cam0']['intrinsics']
+        # K = np.asarray([[fu, 0, pu], [0, fv, pv], [0, 0, 1]])  # K(3,3)
+        # D = np.asarray(data['cam0']['distortion_coeffs'])  # D(4,1)
+        # h, w = origin_image.shape[:2]
+        # cv2.fisheye.undistortImage(origin_image, origin_image, K, D, K, DIM)
+
         temp_name = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         temp_name = temp_name + "_" + str(count) + ".jpg"
         cv2.imshow(temp_name, origin_image) # imshow
