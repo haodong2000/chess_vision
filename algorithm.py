@@ -22,8 +22,8 @@ def chess_board_generator(chess_x, chess_y, chess_int):
     left = min(chess_x)
     right = max(chess_x)
     print("board ->", up, ", ", down, ", ", left, ", ", right)
-    cube_width = round((down - up)/9.0)
-    cube_height = round((right - left)/8.0)
+    cube_height = round((down - up)/8.0)
+    cube_width = round((right - left)/9.0)
     print("cube  -> ", cube_width, ", ", cube_height)
 
     __board = []
@@ -39,13 +39,13 @@ def chess_board_generator(chess_x, chess_y, chess_int):
     for index in range(size_x):
         x = round((chess_x[index] - left) / cube_width)
         y = round((chess_y[index] - up) / cube_height)
-        __board[x][y] = "XX"
+        __board[y][x] = "XX"
         # print(x, "", y)
 
     # print(__board)
 
-    # for i in range(9):
-    #     print(__board[i])
+    for i in range(9):
+        print(__board[i])
 
     __board_CN = []
     for i in range(9):
@@ -64,7 +64,7 @@ def chess_board_generator(chess_x, chess_y, chess_int):
         x = round((chess_x[index_cn] - left) / cube_width)
         y = round((chess_y[index_cn] - up) / cube_height)
         str_cn = load_data.int2cn(chess_int[index_cn] + 1)
-        __board_CN[x][y] = str_cn
+        __board_CN[y][x] = str_cn
         msg = load_data.int2str(chess_int[index_cn]) + str(x) + str(y) + ", "
         __curBoard.append(msg)
 
