@@ -151,7 +151,7 @@ def generate_date_360(data_per_360_path, data_360_path):
         data_360_path_spec = data_360_path + "/" + origin_image[5:11]
         print("============================== " + data_360_path_spec + "  <saving> ==============================")
         for angle in range(number_angle):
-            im_ro = im.rotate(angle * (360/number_angle))
+            im_ro = im.rotate(angle * (360.0/number_angle))
             data_360_path_spec_save = data_360_path_spec + "/" + str(angle) + "_" + origin_image[5:11] + ".jpg"
             im_ro.save(data_360_path_spec_save, quality=95, subsampling=0)
             print(data_360_path_spec_save + "   \t\t\t<<<  angle = " + str(angle) + "  >>>   \t\t\t" + str(count))

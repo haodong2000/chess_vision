@@ -204,7 +204,7 @@ def hough_circle(origin_image_list, count_image):
             else:
                 print("generate_data.py, line:24, esc expected")
 
-        # crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
+        crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
         crop_cv_im = img_to_array(crop_cv_im)
         data.append(crop_cv_im)
         # data = np.array(data)

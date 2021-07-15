@@ -72,8 +72,8 @@ def RedBlackBoost(img_set):
                     if algorithm.outOfRadius(j, i):
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
                         continue
-                    if ((0 <= hsv_img[i, j, 0] <= 10) or (310 <= hsv_img[i, j, 0] <= 360)) and \
-                            (80.0 <= hsv_img[i, j, 1]*255 <= 255) and (100 <= hsv_img[i, j, 2] <= 255):
+                    if ((0 <= hsv_img[i, j, 0] <= 20) or (312 <= hsv_img[i, j, 0] <= 360)) and \
+                            (80.0 <= hsv_img[i, j, 1]*255 <= 255) and (95.0 <= hsv_img[i, j, 2] <= 255):
                         boosted_img_set[idx, i, j, :] = [0, 0, 255]
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
@@ -89,13 +89,13 @@ def RedBlackBoost(img_set):
                         boosted_img_set[idx, i, j, :] = [0, 0, 0]
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
-        if idx/359 == int(idx/359) and idx != 0:
+        if idx/(Global_Params.M_number_angle - 1) == int(idx/(Global_Params.M_number_angle - 1)) and idx != 0:
             print("RedBlackBoost Processing...")
-            # print(hsv_img[30, 30, :])
-            # cv2.imshow("img", img/255.0)
-            # cv2.imshow("boosted_img", boosted_img_set[idx]/255.0)
-            # cv2.waitKey(0)
-            # cv2.destroyAllWindows()
+            print(hsv_img[30, 30, :])
+            cv2.imshow("img", img/255.0)
+            cv2.imshow("boosted_img", boosted_img_set[idx]/255.0)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
         idx += 1
 
     del img_set
