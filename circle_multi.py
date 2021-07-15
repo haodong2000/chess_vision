@@ -206,15 +206,26 @@ def hough_circle(origin_image_list, count_image):
         crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
         crop_cv_im = img_to_array(crop_cv_im)
         data.append(crop_cv_im)
-        data = np.array(data)
-        data = filter.RedBlackBoost(data)
-        data = data / 255.0
-        crop_cv_im = data[0]
-        crop_cv_im = np.expand_dims(crop_cv_im, 0)  # 扩展至四维
-        output = model.predict(crop_cv_im)
+        # data = np.array(data)
+        # data = filter.RedBlackBoost(data)
+        # data = data / 255.0
+        # crop_cv_im = data[0]
+        # crop_cv_im = np.expand_dims(crop_cv_im, 0)  # 扩展至四维
+        # output = model.predict(crop_cv_im)
         # print(str(index_circle + 1) + " <crop>    CNN: ", output.argmax())
+        # chess_int.append(output.argmax())
+        # data = [] # clear
+
+    data = np.array(data)
+    print("board data shape      = ", data.shape, " ===============================")
+    data = filter.RedBlackBoost(data)
+    data = data / 255.0
+
+    for i in range(len(data)):
+        img = data[i]
+        img = np.expand_dims(img, 0)
+        output = model.predict(img)
         chess_int.append(output.argmax())
-        data = [] # clear
 
     print("chess_x.size   = ", len(chess_x))
     print("chess_y.size   = ", len(chess_y))
