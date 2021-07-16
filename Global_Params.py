@@ -7,7 +7,7 @@ M_data_per_360_path = "./data_pre_360"
 M_data_360_path = "./data_360"
 M_test_path = "./test"
 
-M_number_angle = 360
+M_number_angle = 720
 
 M_imageProcessTest_path = "./webcam"
 # M_imageProcessTest_path_old = "./test_image_process/imageProcessTest"
