@@ -35,7 +35,7 @@ def RgbMedianFilter(img_set, size):
 
     return filted_img_set
 
-def RedBlackBoost(img_set):
+def RedBlackBoost(img_set, IMAGE_SHOW_OR_NOT, IMAGE_SHOW_FREQUENCY):
     '''
     增强图片中的红黑色（红色棋子增强红色，黑色棋子增强黑色）
     :param img_set: 图片集, shape = [num, height, width, 3]
@@ -50,6 +50,8 @@ def RedBlackBoost(img_set):
     idx = 0
     count = 0
     radius = Global_Params.M_norm_size/2
+    mid =Global_Params.M_norm_size/2.0
+    mid = int(mid)
     for img in img_set:
         count += 1
         red_cnt = 0
@@ -72,8 +74,8 @@ def RedBlackBoost(img_set):
                     if algorithm.outOfRadius(j, i):
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
                         continue
-                    if ((0 <= hsv_img[i, j, 0] <= 10) or (345 <= hsv_img[i, j, 0] <= 360)) and \
-                            (66.0 <= hsv_img[i, j, 1]*255 <= 255) and (27.0 <= hsv_img[i, j, 2] <= 255):
+                    if ((0 <= hsv_img[i, j, 0] <= 17) or (345 <= hsv_img[i, j, 0] <= 360)) and \
+                            (66.0 <= hsv_img[i, j, 1]*255 <= 255) and (33.0 <= hsv_img[i, j, 2] <= 255):
                         boosted_img_set[idx, i, j, :] = [0, 0, 255]
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
@@ -91,9 +93,11 @@ def RedBlackBoost(img_set):
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
         if idx/(Global_Params.M_number_angle - 1) == int(idx/(Global_Params.M_number_angle - 1)) and idx != 0:
             print("RedBlackBoost Processing...")
-            print(hsv_img[30, 30, :])
-            cv2.imshow("img", img/255.0)
-            cv2.imshow("boosted_img", boosted_img_set[idx]/255.0)
+            print("hsv_img[mid, mid, :] -> ", hsv_img[mid, mid, :])
+        if IMAGE_SHOW_OR_NOT and idx/IMAGE_SHOW_FREQUENCY == int(idx/IMAGE_SHOW_FREQUENCY):
+            print("hsv_img[mid, mid, :] -> ", hsv_img[mid, mid, :])
+            cv2.imshow("img_" + str(idx), img/255.0)
+            cv2.imshow("boosted_img_" + str(idx), boosted_img_set[idx]/255.0)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
         idx += 1

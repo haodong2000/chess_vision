@@ -48,14 +48,14 @@ def load_data(image_paths, norm_size):
 
     data = np.array(data)
     print("data shape      = ", data.shape, " ===============================")
-    data = filter.RedBlackBoost(data)
+    data = filter.RedBlackBoost(data, False, 99)
     data = data/255.0
     label = np.array(label)
     label = to_categorical(label, num_classes=classes)
 
     test_data = np.array(test_data)
     print("test_data shape = ", test_data.shape, " ===============================")
-    test_data = filter.RedBlackBoost(test_data)
+    test_data = filter.RedBlackBoost(test_data, False, 99)
     test_data = test_data/255.0
     test_label = np.array(test_label)
     test_label = to_categorical(test_label, num_classes=classes)
