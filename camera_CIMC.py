@@ -64,7 +64,7 @@ def getOriginImage():
             continue
 
     while True:
-        time.sleep(0.1)
+        time.sleep(0.1) 
         web_path = Global_Params.M_imageProcessTest_path
         web_images = os.listdir(web_path)
         count_capture = 0
