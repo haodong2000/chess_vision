@@ -65,7 +65,7 @@ def chess_board_generator(chess_x, chess_y, chess_int):
         y = round((chess_y[index_cn] - up) / cube_height)
         str_cn = load_data.int2cn(chess_int[index_cn] + 1)
         __board_CN[y][x] = str_cn
-        msg = load_data.int2str(chess_int[index_cn]) + str(x) + str(y) + ", "
+        msg = load_data.int2str(chess_int[index_cn]) + str(y) + str(x) + ", "
         __curBoard.append(msg)
 
     for i in range(9):

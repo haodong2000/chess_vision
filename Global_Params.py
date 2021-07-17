@@ -10,6 +10,7 @@ M_test_path = "./test"
 M_number_angle = 720
 
 M_imageProcessTest_path = "./webcam"
+M_CIMC_Webcam = "./webcam"
 # M_imageProcessTest_path_old = "./test_image_process/imageProcessTest"
 M_imageProcessTestAns_path = "./test_image_process/imageProcessTest_ans"
 M_image_circle_test_path = "./test_image_process/image_circle_test"
@@ -37,3 +38,5 @@ M_norm_size = 120
 
 M_HOST_TEST = "127.0.0.1"  # IVP4 localHost
 M_PORT_TEST = 6666
+
+M_Test_Webcam = 20

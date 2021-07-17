@@ -11,13 +11,67 @@ import time
 import sys
 import Global_Params
 
+import cv2
+import datetime
+import os
+from PIL import Image
+
 import algorithm
 import circle_multi
+import Global_Params
 
 HOST = Global_Params.M_HOST_TEST
 PORT = Global_Params.M_PORT_TEST
 
 # __isStepGenerate = False
+
+
+def init_webcam():
+    print(cv2.__version__)
+    capture = cv2.VideoCapture(0) # on Webcam
+    default_size = (int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)),
+                    int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)))
+    print("old size: ", default_size)
+
+    # set frame height and width
+    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    new_size = (int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)),
+                int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)))
+    print("new size: ", new_size)
+
+    cur_count = 0
+    total_count = Global_Params.M_Test_Webcam
+    test_ImageStore = Global_Params.M_imageProcessTest_path
+
+    while(True):
+        ret, origin_image = capture.read()
+
+        temp_name = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        temp_name = temp_name + "_" + str(cur_count) + ".jpg"
+        cur_count += 1
+        print(temp_name, "  <", cur_count, "/", total_count, ">")
+        cv2.imshow(temp_name, origin_image) # imshow
+
+        mode = 0
+        if mode == 0:
+            flag = cv2.waitKey(0) # press enter to save image, and Esc to quit
+            if flag == 27:
+                print("Quit init_webcam()")
+                cv2.destroyWindow(temp_name)
+                break
+            if flag != 13 and flag != 27:
+                cv2.destroyWindow(temp_name)
+                continue
+        elif mode == 1:
+            save_path = os.path.join(test_ImageStore, temp_name)
+            cv2.imwrite(save_path, origin_image)
+            cv2.destroyWindow(temp_name)
+            print(save_path, "   <saved>")
+            break
+        else:
+            print("mode error!!!!!  server_one.py  line:71")
+            break
 
 
 def socket_service():
@@ -54,11 +108,12 @@ def deal_data(conn, addr):
     while True:
         data = conn.recv(1024) # 1024 is the longest length of string
         print('{0} client send data is {1}'.format(addr, data.decode()))
-        time.sleep(0.5)
+        time.sleep(0.05)
         if data.decode() == "exit" or not data:
             print('{0} connection close'.format(addr))
             conn.send(bytes('Connection closed!'.encode("UTF-8")))
             break
+        time.sleep(0.25)
         __curBoard = []
         count += 1
         __curBoard = circle_multi.generate_board_message(count)
@@ -80,4 +135,5 @@ def generate_message(__curBoard):
 
 
 if __name__ == '__main__':
+    # init_webcam()
     socket_service()

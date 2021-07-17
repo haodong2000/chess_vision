@@ -46,13 +46,13 @@ def read_origin_image():
 
     print("image list done! count = ", count_image)
 
-    if count_image == 0:
+    while count_image == 0:
         print("ERROR: no image in path: ", origin_image_path)
         return -999
 
     return origin_image_list, count_image
 
-def hough_circle(origin_image_list, count_image):
+def hough_circle():
     save_dir = Global_Params.M_model_save_path + "/"  # the model stored there
     # sort by last modified time
     model_lists = os.listdir(save_dir)
@@ -72,15 +72,24 @@ def hough_circle(origin_image_list, count_image):
     print("model loaded!")
 
     # for index in range(0, count_image):
-    index = 0
-    origin_image = cv2.imread(origin_image_list[index], cv2.IMREAD_COLOR)
-    print(origin_image_list[index])
 
-    if origin_image is None:
-        print("ERROR: circle.py line: 36, image loading failed!")
-        return -888
+    web_images = os.listdir(Global_Params.M_imageProcessTest_path)
+    origin_image_path = ""
+    pil_origin_image = None
+    origin_image = None
+    for web_image in web_images:
+        origin_image = cv2.imread(os.path.join(Global_Params.M_CIMC_Webcam, web_image))
+        origin_image_path = os.path.join(Global_Params.M_CIMC_Webcam, web_image)
+        pil_origin_image = Image.open(origin_image_path)
 
-    pil_origin_image = Image.open(origin_image_list[index])
+    while origin_image is None:
+        time.sleep(0.1)
+        for web_image in web_images:
+            origin_image = cv2.imread(os.path.join(Global_Params.M_CIMC_Webcam, web_image))
+            origin_image_path = os.path.join(Global_Params.M_CIMC_Webcam, web_image)
+            pil_origin_image = Image.open(origin_image_path)
+        print("ERROR: circle_multi.py line: 80, image loading failed!")
+
     origin_image_height = pil_origin_image.size[1]
     origin_image_width = pil_origin_image.size[0]
     img_height = origin_image_height
@@ -91,13 +100,13 @@ def hough_circle(origin_image_list, count_image):
     # gray_origin_image = cv2.resize(gray_origin_image, (img_width, img_height))
 
     # print("grey image show: index = ", index)
-    window_name = "grey of " + origin_image_list[index]
+    window_name = "grey of " + origin_image_path
 
     if CHESS_IMAGE_SHOW:
         cv2.imshow(window_name, gray_origin_image)
         flag = cv2.waitKey(0)
         if flag == 13: # press enter to save the image
-            save_path = Global_Params.M_imageProcessTestAns_path + "/grey_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
+            save_path = Global_Params.M_imageProcessTestAns_path + "/grey_" + str(0) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
             cv2.imwrite(save_path, gray_origin_image)
             print(save_path, " saved")
             cv2.destroyWindow(window_name)
@@ -131,7 +140,7 @@ def hough_circle(origin_image_list, count_image):
     only_one_h = []
     chess_x = []
     chess_y = []
-    temp_origin = cv2.imread(origin_image_list[index], cv2.IMREAD_COLOR)
+    temp_origin = origin_image
 
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -156,7 +165,7 @@ def hough_circle(origin_image_list, count_image):
     print("count_circle   = ", count_circle)
 
     # print("hough circle image show: index = ", index)
-    window_name = "hough circle of " + origin_image_list[index] # or np.array(origin_image_list)[index]
+    window_name = "hough circle of " + origin_image_path # or np.array(origin_image_list)[index]
     # cv2.imshow(window_name, temp_origin)
     # print(str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg")
 
@@ -164,7 +173,7 @@ def hough_circle(origin_image_list, count_image):
         cv2.imshow(window_name, temp_origin)
         flag = cv2.waitKey(0)
         if flag == 13: # press enter to save the image
-            save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
+            save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(0) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
             cv2.imwrite(save_path, temp_origin)
             print(save_path, " saved")
             cv2.destroyWindow(window_name)
@@ -197,7 +206,7 @@ def hough_circle(origin_image_list, count_image):
                 cv2.destroyWindow(str(index_circle + 1) + " <crop>")
             elif flag == 13:
                 crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
-                new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(index) + ".jpg"
+                new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(0) + ".jpg"
                 cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
                 cv2.destroyWindow(str(index_circle + 1) + " <crop>")
                 print("===============" + new_origin_name + "==SAVED===================")
@@ -238,8 +247,7 @@ def hough_circle(origin_image_list, count_image):
 
 def generate_board_message(count):
     print("Chess Detection Count = ", count)
-    oriImg, cnt = read_origin_image()
-    chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
+    chess_x, chess_y, chess_int = hough_circle()
     # print("size  -> ", len(chess_x), ", ", len(chess_y))
     size_x = len(chess_x)
     size_y = len(chess_y)
@@ -260,8 +268,8 @@ def generate_board_message(count):
             print("Game Over!  Black Win!")
         if whoWin == 1:
             print("Game Over!  Red Win!")
-    time.sleep(0.5)
-    del size_x, size_y, size_int, chess_x, chess_y, chess_int, gameIsOn, whoWin, oriImg, cnt
+    time.sleep(0.25)
+    del size_x, size_y, size_int, chess_x, chess_y, chess_int, gameIsOn, whoWin
     return curBoard
 
 
