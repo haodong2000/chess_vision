@@ -26,6 +26,13 @@ def chess_board_generator(chess_x, chess_y, chess_int):
     cube_width = round((right - left)/9.0)
     print("cube  -> ", cube_width, ", ", cube_height)
 
+    up = Global_Params.M_up
+    down = Global_Params.M_down
+    left = Global_Params.M_left
+    right = Global_Params.M_right
+    cube_height = round((down - up)/8.0)
+    cube_width = round((right - left)/9.0)
+
     __board = []
     for i in range(9):
         __row = []
