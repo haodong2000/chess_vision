@@ -63,9 +63,9 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
                                    cv2.HOUGH_GRADIENT, 
                                    1.0, 
                                    im.size[0]/8.0, 
-                                   param1=450,
+                                   param1=400,
                                    param2=30,
-                                   minRadius=round(min(im.size[0], im.size[1])/50.0),
+                                   minRadius=round(min(im.size[0], im.size[1])/40.0),
                                    maxRadius=round(max(im.size[0], im.size[1])/20.0))
         
         # only one circle
