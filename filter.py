@@ -91,9 +91,8 @@ def RedBlackBoost(img_set, IMAGE_SHOW_OR_NOT, IMAGE_SHOW_FREQUENCY):
                         boosted_img_set[idx, i, j, :] = [0, 0, 0]
                     else:
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
-        if idx/(Global_Params.M_number_angle - 1) == int(idx/(Global_Params.M_number_angle - 1)) and idx != 0:
-            print("RedBlackBoost Processing...")
-            print("hsv_img[mid, mid, :] -> ", hsv_img[mid, mid, :])
+        if idx/30 == int(idx/30):
+            print("RedBlackBoost Processing...  <cur idx = ", idx, ">")
         if IMAGE_SHOW_OR_NOT and idx/IMAGE_SHOW_FREQUENCY == int(idx/IMAGE_SHOW_FREQUENCY):
             print("hsv_img[mid, mid, :] -> ", hsv_img[mid, mid, :])
             cv2.imshow("img_" + str(idx), img/255.0)
