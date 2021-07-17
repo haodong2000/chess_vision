@@ -55,7 +55,7 @@ def returnPreImage(testMatch):
 
     data = np.array(data)
     print("data shape      = ", data.shape, " ===============================")
-    data = filter.RedBlackBoost(data)
+    data = filter.RedBlackBoost(data, False, 99)
     data = data/255.0
 
     print("Test image reading done!")
@@ -83,6 +83,7 @@ def dispResult(TestMatch, testMatch):
     testImage = os.listdir(pre_dir)
     print(testImage)
 
+    count_vertify = 0
     for i in range(len(TestMatch)):
         img = TestMatch[i]
         img = np.expand_dims(img, 0) # 扩展至四维
@@ -93,7 +94,8 @@ def dispResult(TestMatch, testMatch):
         plt.figure("Test Image")
         plt.imshow(mat)
         plt.axis("off") # 关掉坐标轴为 off
-        title = "CNN Result: " + load_data.int2str(output.argmax())
+        count_vertify += 1
+        title = "CNN Result: " + load_data.int2str(output.argmax()) + "  (num = " + str(count_vertify) + ")"
         plt.title(title) # 图像题目
         plt.show()
 

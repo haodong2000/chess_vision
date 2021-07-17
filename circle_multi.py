@@ -219,7 +219,7 @@ def hough_circle(origin_image_list, count_image):
 
     data = np.array(data)
     print("board data shape      = ", data.shape, " ===============================")
-    data = filter.RedBlackBoost(data)
+    data = filter.RedBlackBoost(data, False, 99)
     data = data / 255.0
 
     for i in range(len(data)):

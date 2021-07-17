@@ -229,7 +229,7 @@ def hough_circle(origin_image_list, count_image):
 def generate_board_message(count):
     print("Chess Detection Count = ", count)
     oriImg, cnt = read_origin_image()
-    chess_x, chess_y, chess_int = hough_circle(oriImg, cnt)
+    chess_x, chess_y = hough_circle(oriImg, cnt)
 
 
 
