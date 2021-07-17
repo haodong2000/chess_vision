@@ -75,25 +75,21 @@ def hough_circle():
 
     web_images = os.listdir(Global_Params.M_imageProcessTest_path)
     origin_image_path = ""
-    pil_origin_image = None
     origin_image = None
     for web_image in web_images:
         origin_image = cv2.imread(os.path.join(Global_Params.M_CIMC_Webcam, web_image))
         origin_image_path = os.path.join(Global_Params.M_CIMC_Webcam, web_image)
-        pil_origin_image = Image.open(origin_image_path)
 
-    while origin_image is None or pil_origin_image is None:
+    while origin_image is None:
         time.sleep(0.1)
         for web_image in web_images:
             origin_image = cv2.imread(os.path.join(Global_Params.M_CIMC_Webcam, web_image))
             origin_image_path = os.path.join(Global_Params.M_CIMC_Webcam, web_image)
-            pil_origin_image = Image.open(origin_image_path)
         print("ERROR: circle_multi.py line: 80, image loading failed!")
 
-    origin_image_height = pil_origin_image.size[1]
-    origin_image_width = pil_origin_image.size[0]
-    img_height = origin_image_height
-    img_width = origin_image_width
+    img_width, img_height, img_depth = origin_image.shape
+    origin_image_height = img_height
+    origin_image_width = img_width
 
     gray_origin_image = cv2.cvtColor(origin_image, cv2.COLOR_RGB2GRAY)
     gray_origin_image = cv2.medianBlur(gray_origin_image, 5) # 高斯滤波
@@ -156,7 +152,7 @@ def hough_circle():
             chess_y.append(indexCircle[1])
             radius = indexCircle[2] # circle radius
             cv2.circle(temp_origin, center, radius, (255, 0, 255), 3)
-            mask_temp = np.zeros((pil_origin_image.size[1], pil_origin_image.size[0]), np.uint8)
+            mask_temp = np.zeros((origin_image_width, origin_image_height), np.uint8)
             cv2.circle(mask_temp, center, radius, (255, 255, 255), thickness=-1)
             mask.append(mask_temp)
     if count_circle == 0:
