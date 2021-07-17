@@ -82,7 +82,7 @@ def hough_circle():
         origin_image_path = os.path.join(Global_Params.M_CIMC_Webcam, web_image)
         pil_origin_image = Image.open(origin_image_path)
 
-    while origin_image is None:
+    while origin_image is None or pil_origin_image is None:
         time.sleep(0.1)
         for web_image in web_images:
             origin_image = cv2.imread(os.path.join(Global_Params.M_CIMC_Webcam, web_image))

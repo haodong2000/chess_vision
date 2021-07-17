@@ -41,7 +41,7 @@ M_PORT_TEST = 6666
 
 M_Test_Webcam = 20
 
-M_up = (78)/1.0
-M_down = (972)/1.0
-M_left = (358)/1.0
-M_right = (1366)/1.0
+M_up = (70)/1.0
+M_down = (980)/1.0
+M_left = (350)/1.0
+M_right = (1375)/1.0
