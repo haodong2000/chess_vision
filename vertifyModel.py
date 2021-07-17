@@ -59,10 +59,10 @@ def returnPreImage(testMatch):
     data = data/255.0
 
     print("Test image reading done!")
-    return data # 里面存放图片数据
+    return data, count # 里面存放图片数据
 
 
-def dispResult(TestMatch, testMatch):
+def dispResult(TestMatch, testMatch, count_circle):
     # sort by last modified time
     model_lists = os.listdir(save_dir)
     model_lists = sorted(model_lists, 
@@ -95,7 +95,7 @@ def dispResult(TestMatch, testMatch):
         plt.imshow(mat)
         plt.axis("off") # 关掉坐标轴为 off
         count_vertify += 1
-        title = "CNN Result: " + load_data.int2str(output.argmax()) + "  (num = " + str(count_vertify) + ")"
+        title = "CNN Result: " + load_data.int2str(output.argmax()) + "  (" + str(count_vertify) + "/" + str(count_circle) + ")"
         plt.title(title) # 图像题目
         plt.show()
 
@@ -105,8 +105,8 @@ def dispResult(TestMatch, testMatch):
 
 def main():
     test = readPreImage()
-    data = returnPreImage(test)
-    dispResult(data, test)
+    data, cnt = returnPreImage(test)
+    dispResult(data, test, cnt)
 
 # 调用函数
 if __name__ == '__main__':
