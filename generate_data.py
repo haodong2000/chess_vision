@@ -143,19 +143,60 @@ def generate_data(data_new_path, data_gen_path, data_no_use_path):
 
 def generate_date_360(data_per_360_path, data_360_path):
 
-    origin_images = os.listdir(data_per_360_path)
+    init_groups = os.listdir(data_per_360_path)
+    chess_map = {}
+    for each_group in init_groups:
+        init_images = os.listdir(os.path.join(data_per_360_path, each_group))
+        print("In generate_date_360() <rename process> ", each_group)
+        count_image_num = 0
+        for image in init_images:
+            old_file = os.path.join(os.path.join(data_per_360_path, each_group), image)
+            new_file = os.path.join(os.path.join(data_per_360_path, each_group),
+                                    "crop_" + each_group + str(count_image_num) + ".jpg")
+            os.rename(old_file, new_file)
+            count_image_num += 1
+        chess_map[each_group] = count_image_num
+
+    # new api
+    each_rotate_angle = 360.0/Global_Params.M_number_angle
     count = 0
-    for origin_image in origin_images:
-        im = Image.open(os.path.join(data_per_360_path, origin_image))
-        # print(origin_image[5:11])
-        data_360_path_spec = data_360_path + "/" + origin_image[5:11]
-        print("============================== " + data_360_path_spec + "  <saving> ==============================")
-        for angle in range(number_angle):
-            im_ro = im.rotate(angle * (360.0/number_angle))
-            data_360_path_spec_save = data_360_path_spec + "/" + str(angle) + "_" + origin_image[5:11] + ".jpg"
-            im_ro.save(data_360_path_spec_save, quality=95, subsampling=0)
-            print(data_360_path_spec_save + "   \t\t\t<<<  angle = " + str(angle) + "  >>>   \t\t\t" + str(count))
-            count += 1
+    for each_group in init_groups:
+        init_images = os.listdir(os.path.join(data_per_360_path, each_group))
+        print("<image rotating process> <", each_group, "> ======================================")
+        current_image_num = chess_map[each_group]
+        current_rotate_angle = 360.0/current_image_num
+        current_rotate_number = current_rotate_angle * (Global_Params.M_number_angle/360.0)
+        data_360_path_spec = data_360_path + "/" + each_group
+        count_image = 0
+        count_rotate = 0
+        for image in init_images:
+            img = Image.open(os.path.join(os.path.join(data_per_360_path, each_group), image))
+            start_angle = count_image * current_rotate_angle
+            count_image += 1
+            for i in range(int(current_rotate_number)):
+                img_ro = img.rotate(start_angle + i * each_rotate_angle)
+                data_360_path_spec_save = data_360_path_spec + "/" + str(count_rotate) + "_" + each_group + ".jpg"
+                count_rotate += 1
+                img_ro.save(data_360_path_spec_save, quality=95, subsampling=0)
+                count += 1
+                print(data_360_path_spec_save + "   \t\t\t<<<  angle = " + str(count_rotate) + "  >>>   \t\t\t" + str(count))
+
+
+
+    # old api
+    # origin_images = os.listdir(data_per_360_path)
+    # count = 0
+    # for origin_image in origin_images:
+    #     im = Image.open(os.path.join(data_per_360_path, origin_image))
+    #     # print(origin_image[5:11])
+    #     data_360_path_spec = data_360_path + "/" + origin_image[5:11]
+    #     print("============================== " + data_360_path_spec + "  <saving> ==============================")
+    #     for angle in range(number_angle):
+    #         im_ro = im.rotate(angle * (360.0/number_angle))
+    #         data_360_path_spec_save = data_360_path_spec + "/" + str(angle) + "_" + origin_image[5:11] + ".jpg"
+    #         im_ro.save(data_360_path_spec_save, quality=95, subsampling=0)
+    #         print(data_360_path_spec_save + "   \t\t\t<<<  angle = " + str(angle) + "  >>>   \t\t\t" + str(count))
+    #         count += 1
 
 
 # use for debug
@@ -166,7 +207,7 @@ def main():
     data_per_360_path = Global_Params.M_data_per_360_path
     data_360_path = Global_Params.M_data_360_path
     clear(data_gen_path, data_no_use_path)
-    circle_img = generate_data(data_new_path, data_gen_path, data_no_use_path)
+    # circle_img = generate_data(data_new_path, data_gen_path, data_no_use_path)
     generate_date_360(data_per_360_path, data_360_path)
 
 # 调用函数
