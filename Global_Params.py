@@ -47,3 +47,4 @@ M_left = (355 + 356)/2.0
 M_right = (1375 + 1366)/2.0
 
 # 80 ,  978 ,  356 ,  1366
+# Premature end of JPEG file
