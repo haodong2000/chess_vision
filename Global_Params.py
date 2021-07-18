@@ -39,7 +39,7 @@ M_norm_size = 120
 M_HOST_TEST = "127.0.0.1"  # IVP4 localHost
 M_PORT_TEST = 6666
 
-M_Test_Webcam = 20
+M_Test_Webcam = 32
 
 M_up = (75 + 80)/2.0
 M_down = (980 + 978)/2.0

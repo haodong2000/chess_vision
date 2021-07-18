@@ -3,7 +3,7 @@
 import socket
 import sys
 
-HOST = "192.168.1.154"
+HOST = "192.168.1.33"
 PORT = 8082
 
 def socket_client():
