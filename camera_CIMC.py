@@ -38,7 +38,14 @@ def getOriginImage():
 
     while True:
         ret, origin_image = capture.read()
-
+        mask_temp = np.zeros((1080, 1920), np.uint8)
+        mask = cv2.rectangle(mask_temp, Global_Params.M_point_lefttop, Global_Params.M_point_rightbottom,
+                             (255, 255, 255), -1)
+        crop_cv_im = cv2.bitwise_and(origin_image, origin_image, mask=mask)
+        _, thresh = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)
+        crop_cv_im = crop_cv_im[Global_Params.M_point_lefttop[1]:Global_Params.M_point_rightbottom[1],
+                     Global_Params.M_point_lefttop[0]:Global_Params.M_point_rightbottom[0]]
+        origin_image = crop_cv_im
         temp_name = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         temp_name = temp_name + "_" + str(count) + ".jpg"
         cv2.imshow(temp_name, origin_image) # imshow
@@ -71,6 +78,14 @@ def getOriginImage():
         while count_capture < Global_Params.M_Test_Webcam:
             ret, origin_image = capture.read()
             count_capture += 1
+            mask_temp = np.zeros((1080, 1920), np.uint8)
+            mask = cv2.rectangle(mask_temp, Global_Params.M_point_lefttop, Global_Params.M_point_rightbottom,
+                                 (255, 255, 255), -1)
+            crop_cv_im = cv2.bitwise_and(origin_image, origin_image, mask=mask)
+            _, thresh = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)
+            crop_cv_im = crop_cv_im[Global_Params.M_point_lefttop[1]:Global_Params.M_point_rightbottom[1],
+                         Global_Params.M_point_lefttop[0]:Global_Params.M_point_rightbottom[0]]
+            origin_image = crop_cv_im
             # print("count_webcam_capture = ", count_capture)
         temp_name = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         temp_name = temp_name + "_" + str(count) + ".jpg"
