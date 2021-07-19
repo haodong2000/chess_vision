@@ -39,19 +39,19 @@ M_norm_size = 120
 M_HOST_TEST = "127.0.0.1"  # IVP4 localHost
 M_PORT_TEST = 6666
 
-M_Test_Webcam = 32
+M_Test_Webcam = 50
 
-M_up = (49)/1.0
-M_down = (957)/1.0
-M_left = (49)/1.0
-M_right = (1077)/1.0
+M_up = (52)/1.0
+M_down = (958)/1.0
+M_left = (52)/1.0
+M_right = (1070)/1.0
 
-M_point_up = 25
-M_point_down = 1030
-M_point_left = 290
-M_point_right = 1420
+M_point_up = 22
+M_point_down = 1038
+M_point_left = 305
+M_point_right = 1435
 
-# 80 ,  978 ,  356 ,  1366
+# board -> 54 ,  956 ,  54 ,  1068
 # Premature end of JPEG file
 
 M_point_lefttop = (M_point_left, M_point_up)
