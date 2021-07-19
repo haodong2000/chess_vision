@@ -41,17 +41,18 @@ M_PORT_TEST = 6666
 
 M_Test_Webcam = 50
 
-M_up = (52)/1.0
-M_down = (958)/1.0
-M_left = (52)/1.0
-M_right = (1070)/1.0
+M_up = (58)/1.0
+M_down = (968)/1.0
+M_left = (56)/1.0
+M_right = (1074)/1.0
 
-M_point_up = 22
-M_point_down = 1038
-M_point_left = 305
-M_point_right = 1435
+M_point_up = 27
+M_point_down = 1052
+M_point_left = 291
+M_point_right = 1421
 
 # board -> 54 ,  956 ,  54 ,  1068
+# board -> 60 ,  970 ,  58 ,  1076
 # Premature end of JPEG file
 
 M_point_lefttop = (M_point_left, M_point_up)

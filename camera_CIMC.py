@@ -91,8 +91,13 @@ def getOriginImage():
         temp_name = temp_name + "_" + str(count) + ".jpg"
         # cv2.imshow(temp_name, origin_image) # imshow
         save_path = os.path.join(web_path, temp_name)
+        cv2.imwrite(save_path, origin_image)
+        web_images = sorted(web_images,
+                            key=lambda files: os.path.getmtime(os.path.join(web_path, files)),
+                            reverse=False)
         for web_image in web_images:
             os.remove(os.path.join(web_path, web_image))
+            break
         cv2.imwrite(save_path, origin_image)
         print(temp_name, "   <saved>")
 
