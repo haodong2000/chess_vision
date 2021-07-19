@@ -157,6 +157,7 @@ def hough_circle():
             mask.append(mask_temp)
     if count_circle == 0:
         print("count_circle = 0, no circles found!")
+        return [], [], []
 
     print("count_circle   = ", count_circle)
 

@@ -17,10 +17,17 @@ import load_data
 def chess_board_generator(chess_x, chess_y, chess_int):
     size_x = len(chess_x)
     size_y = len(chess_y)
-    up = min(chess_y)
-    down = max(chess_y)
-    left = min(chess_x)
-    right = max(chess_x)
+    up = 0
+    down = 0
+    left = 0
+    right = 0
+    if size_x == 0 and size_y == 0:
+        print("20210719  ->   size_x == 0 and size_y == 0")
+    else:
+        up = min(chess_y)
+        down = max(chess_y)
+        left = min(chess_x)
+        right = max(chess_x)
     print("board ->", up, ", ", down, ", ", left, ", ", right)
     cube_height = round((down - up)/8.0)
     cube_width = round((right - left)/9.0)
