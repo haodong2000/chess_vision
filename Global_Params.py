@@ -48,9 +48,9 @@ M_down = (960)/1.0
 M_left = (54)/1.0
 M_right = (1078)/1.0
 
-M_point_up = 12
+M_point_up = 6
 M_point_down = 1033
-M_point_left = 310
+M_point_left = 300
 M_point_right = 1450
 
 # board -> 54 ,  956 ,  54 ,  1068
