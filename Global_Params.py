@@ -15,6 +15,8 @@ M_CIMC_Webcam = "./webcam"
 M_imageProcessTestAns_path = "./test_image_process/imageProcessTest_ans"
 M_image_circle_test_path = "./test_image_process/image_circle_test"
 
+M_pil_temp_copy_path = "./test_image_process/pil_temp_copy"
+
 M_systemCamTest_path = "./test_image_process/systemCamTest"
 
 M_origin_image_path = "./data/origin_image"
@@ -42,20 +44,26 @@ M_PORT_TEST = 6666
 M_Test_Webcam = 50
 
 M_up = (56)/1.0
-M_down = (964)/1.0
-M_left = (44)/1.0
-M_right = (1074)/1.0
+M_down = (960)/1.0
+M_left = (54)/1.0
+M_right = (1078)/1.0
 
-M_point_up = 10
-M_point_down = 1030
-M_point_left = 320
-M_point_right = 1460
+M_point_up = 12
+M_point_down = 1033
+M_point_left = 310
+M_point_right = 1450
 
 # board -> 54 ,  956 ,  54 ,  1068
 # board -> 60 ,  970 ,  58 ,  1076
 # board -> 66 ,  960 ,  66 ,  1078
 # board -> 56 ,  964 ,  44 ,  1074
+# board -> 50 ,  944 ,  60 ,  1086
+# board -> 54 ,  956 ,  50 ,  1076
+# board -> 60 ,  964 ,  56 ,  1082
+
 # Premature end of JPEG file
 
 M_point_lefttop = (M_point_left, M_point_up)
 M_point_rightbottom = (M_point_right, M_point_down)
+
+M_Circle_FLAG = False

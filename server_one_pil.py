@@ -17,7 +17,7 @@ import os
 from PIL import Image
 
 import algorithm
-import circle_multi
+import circle_multi_pil
 import Global_Params
 
 HOST = Global_Params.M_HOST_TEST
@@ -116,10 +116,7 @@ def deal_data(conn, addr):
         time.sleep(0.25)
         __curBoard = []
         count += 1
-        Global_Params.M_Circle_FLAG = True
-        __curBoard = circle_multi.generate_board_message(count)
-        Global_Params.M_Circle_FLAG = False
-        time.sleep(4)
+        __curBoard = circle_multi_pil.generate_board_message(count)
         if len(__curBoard) > 0:
             backMsg = generate_message(__curBoard)
         else:

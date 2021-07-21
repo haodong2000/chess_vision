@@ -193,6 +193,10 @@ def hough_circle():
         # contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         crop_cv_im = crop_cv_im[only_one_y[index_circle]:only_one_y[index_circle] + only_one_h[index_circle],
                                 only_one_x[index_circle]:only_one_x[index_circle] + only_one_w[index_circle]]
+        # save
+        new_origin_name_pil = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(0) + ".jpg"
+        cv2.imwrite(os.path.join(Global_Params.M_pil_temp_copy_path, new_origin_name_pil), crop_cv_im)
+
         # cv2.imshow(str(index_circle + 1) + " <crop>", crop_cv_im)
         # print(str(index_circle + 1), "  \t<crop>  ", crop_cv_im.shape)
         data_no_use_path = Global_Params.M_image_circle_test_path
@@ -211,13 +215,22 @@ def hough_circle():
             else:
                 print("generate_data.py, line:24, esc expected")
 
-        print("crop_cv_im.shape = ", crop_cv_im.shape)
-        if crop_cv_im.shape[0] == 0 or crop_cv_im.shape[1] == 0 or crop_cv_im.shape[2] == 0:
-            print("Resize() Error! Return [], [], [] 20210721")
-            return [], [], []
-        crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
-        crop_cv_im = img_to_array(crop_cv_im)
-        data.append(crop_cv_im)
+        # crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
+        # crop_cv_im = img_to_array(crop_cv_im)
+
+        # read and resize
+        pil_temp_image = Image.open(os.path.join(Global_Params.M_pil_temp_copy_path, new_origin_name_pil))
+        pil_temp_image = pil_temp_image.resize((Global_Params.M_norm_size, Global_Params.M_norm_size), Image.ANTIALIAS)
+        # np.array
+        pil_temp_image = np.array(pil_temp_image)
+        # delete image
+        # pil_images = os.listdir(Global_Params.M_pil_temp_copy_path)
+        # for pil_image in pil_images:
+        #     os.remove(os.path.join(Global_Params.M_pil_temp_copy_path, pil_image))
+        # append data
+        data.append(pil_temp_image)
+
+        # data.append(crop_cv_im)
         # data = np.array(data)
         # data = filter.RedBlackBoost(data)
         # data = data / 255.0

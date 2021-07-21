@@ -71,7 +71,7 @@ def getOriginImage():
             continue
 
     while True:
-        time.sleep(0.01)
+        time.sleep(2.0)
         web_path = Global_Params.M_imageProcessTest_path
         web_images = os.listdir(web_path)
         count_capture = 0
@@ -96,6 +96,8 @@ def getOriginImage():
                             key=lambda files: os.path.getmtime(os.path.join(web_path, files)),
                             reverse=False)
         for web_image in web_images:
+            while Global_Params.M_Circle_FLAG:
+                time.sleep(0.01)
             os.remove(os.path.join(web_path, web_image))
             break
         cv2.imwrite(save_path, origin_image)
