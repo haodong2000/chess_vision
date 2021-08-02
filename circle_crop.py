@@ -199,7 +199,7 @@ def hough_circle(origin_image_list, count_image):
                 new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(index) + ".jpg"
                 cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
                 cv2.destroyWindow(str(index_circle + 1) + " <crop>")
-                print("===============" + new_origin_name + "==SAVED===================")
+                print("=============== " + os.path.join(data_no_use_path, new_origin_name) + " ==SAVED===================")
             else:
                 print("generate_data.py, line:24, esc expected")
 
