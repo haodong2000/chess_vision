@@ -113,7 +113,7 @@ def deal_data(conn, addr):
             print('{0} connection close'.format(addr))
             conn.send(bytes('Connection closed!'.encode("UTF-8")))
             break
-        time.sleep(0.25)
+        time.sleep(0.05)
         __curBoard = []
         count += 1
         Global_Params.M_Circle_FLAG = True
