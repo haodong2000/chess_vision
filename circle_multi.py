@@ -214,7 +214,7 @@ def hough_circle():
         print("crop_cv_im.shape = ", crop_cv_im.shape)
         if crop_cv_im.shape[0] == 0 or crop_cv_im.shape[1] == 0 or crop_cv_im.shape[2] == 0:
             print("Resize() Error! Return [], [], [] 20210721")
-            time.sleep(6.66)
+            time.sleep(0.99)
             return [], [], []
         crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
         crop_cv_im = img_to_array(crop_cv_im)
