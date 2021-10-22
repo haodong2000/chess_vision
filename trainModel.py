@@ -24,6 +24,7 @@ from imutils import paths
 import sys
 sys.dont_write_bytecode = True
 
+
 def load_data(image_paths, norm_size):
     data = []
     label = []

@@ -20,10 +20,20 @@ import algorithm
 import circle_multi
 import Global_Params
 
+import tensorflow as tf
+import keras
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# os.environ["TF_GPU_ALLOCATOR"] = "cuda_malloc_async"
+config = tf.compat.v1.ConfigProto(log_device_placement=True)
+# dynamically grow the memory used on the GPU
+config.gpu_options.allow_growth = True
+config.gpu_options.per_process_gpu_memory_fraction = 0.5
+sess = tf.compat.v1.Session(config=config)
+# set this TensorFlow session as the default session for Keras.
+tf.compat.v1.keras.backend.set_session(sess)
+
 HOST = Global_Params.M_HOST_TEST
 PORT = Global_Params.M_PORT_TEST
-
-# __isStepGenerate = False
 
 
 def init_webcam():

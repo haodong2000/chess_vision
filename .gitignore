@@ -138,7 +138,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-test/
 test_image_process/
 modelSave/
 data_360/
