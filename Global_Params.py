@@ -73,3 +73,5 @@ M_point_lefttop = (M_point_left, M_point_up)
 M_point_rightbottom = (M_point_right, M_point_down)
 
 M_Circle_FLAG = False
+
+M_GPU_ServerOne = False
