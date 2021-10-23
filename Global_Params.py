@@ -41,17 +41,17 @@ M_norm_size = 120
 M_HOST_TEST = "127.0.0.1"  # IVP4 localHost
 M_PORT_TEST = 6666
 
-M_Test_Webcam = 2.5
+M_Test_Webcam = 5
 
 M_up = (60)/1.0
 M_down = (962)/1.0
 M_left = (62)/1.0
 M_right = (1088)/1.0
 
-M_point_up = 16
-M_point_down = 1043
-M_point_left = 320
-M_point_right = 1470
+M_point_up = 19
+M_point_down = 1050
+M_point_left = 294
+M_point_right = 1453
 
 # board -> 54 ,  956 ,  54 ,  1068
 # board -> 60 ,  970 ,  58 ,  1076
