@@ -4,10 +4,4 @@ new version
 
 - 2021/06/16 versino 1.0
 
-- Model Loss
-
-![image](./curve/Figure_2_2.png)
-
-- Model Accuracy
-
-![image1](./curve/Figure_1_1.png)
+- 2021/10/30 final version 2.0
