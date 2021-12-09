@@ -83,10 +83,13 @@ def hough_circle():
 
     while origin_image is None:
         time.sleep(0.1)
+        web_images = os.listdir(Global_Params.M_imageProcessTest_path)
         for web_image in web_images:
             origin_image = cv2.imread(os.path.join(Global_Params.M_CIMC_Webcam, web_image))
+            if origin_image is not None:
+                break
             origin_image_path = os.path.join(Global_Params.M_CIMC_Webcam, web_image)
-        print("ERROR: circle_multi.py line: 80, image loading failed!")
+        print("ERROR: circle_multi.py line: 92, image loading failed!")
 
     img_width, img_height, img_depth = origin_image.shape
     origin_image_height = img_height
