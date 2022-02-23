@@ -122,7 +122,7 @@ def deal_data(conn, addr):
         Global_Params.M_Circle_FLAG = True
         __curBoard = circle_multi.generate_board_message(count)
         Global_Params.M_Circle_FLAG = False
-        time.sleep(0.99)
+        time.sleep(0.05)
         if len(__curBoard) > 0:
             backMsg = generate_message(__curBoard)
         else:
