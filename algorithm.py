@@ -14,6 +14,9 @@ import Global_Params
 import load_data
 
 
+# @TODO class step and generate backMsg
+
+
 def chess_board_generator(chess_x, chess_y, chess_int):
     size_x = len(chess_x)
     size_y = len(chess_y)
