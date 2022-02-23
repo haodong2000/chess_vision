@@ -59,8 +59,9 @@ def deal_data(conn, addr):
             conn.send(bytes('Connection closed!'.encode("UTF-8")))
             break
         chess_board_string = data.decode()
-        current_matrix = algorithm.string2matrix(str(chess_board_string))
-        backMsg = bytes('Hello QtCreator!'.encode("UTF-8"))
+        current_matrix, which_turn = algorithm.string2matrix(str(chess_board_string))
+        backMsg_example = "1,4041"
+        backMsg = bytes(backMsg_example.encode("UTF-8"))
         conn.send(backMsg)
         # conn.send(bytes(backMsg, "UTF-8"))
         # conn.send(bytes("Hello QT, from: {0}", "UTF-8"))

@@ -184,9 +184,19 @@ def string2matrix(string):
         for j in range(10):
             if matrix[i][j] != 0:
                 matrix_cn[i][j] = load_data.CHESS_CN[matrix[i][j]]
-    for i in range(9):
-        print(matrix_cn[i])
-    return matrix
+    if matrix[0][0] != -1:
+        for i in range(9):
+            print(matrix_cn[i])
+        if string[0:3] == "red":
+            print("RL for red turn")
+            turn = True
+        else:
+            print("RL for black turn")
+            turn = False
+    else:
+        print("chess game start!")
+        turn = False
+    return matrix, turn
 
 
 if __name__ == '__main__':
