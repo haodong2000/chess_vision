@@ -3,10 +3,8 @@
 import socket
 import sys
 
-# HOST = "192.168.1.154"
-# PORT = 8082
 HOST = "127.0.0.1"
-PORT = 6666
+PORT = 9999
 
 
 def socket_client():
