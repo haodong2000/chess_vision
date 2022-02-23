@@ -10,6 +10,8 @@ import threading
 import time
 import sys
 
+import algorithm
+
 # HOST = "127.0.0.1"
 # PORT = 6666
 HOST = "127.0.0.1"
@@ -56,9 +58,11 @@ def deal_data(conn, addr):
             print('{0} connection close'.format(addr))
             conn.send(bytes('Connection closed!'.encode("UTF-8")))
             break
-        __curBoard = []
-        backMsg = data.decode()
-        conn.send(bytes(backMsg, "UTF-8"))
+        chess_board_string = data.decode()
+        current_matrix = algorithm.string2matrix(str(chess_board_string))
+        backMsg = bytes('Hello QtCreator!'.encode("UTF-8"))
+        conn.send(backMsg)
+        # conn.send(bytes(backMsg, "UTF-8"))
         # conn.send(bytes("Hello QT, from: {0}", "UTF-8"))
     conn.close()
 

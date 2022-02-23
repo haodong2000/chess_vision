@@ -26,6 +26,7 @@ from load_data import str2int
 
 CHESS_IMAGE_SHOW = False
 
+
 def read_origin_image():
     origin_image_path = Global_Params.M_imageProcessTest_path
     # origin_image_path = "./test_image_process/systemCamTest"
@@ -51,6 +52,7 @@ def read_origin_image():
         return -999
 
     return origin_image_list, count_image
+
 
 def hough_circle():
     save_dir = Global_Params.M_model_save_path + "/"  # the model stored there
