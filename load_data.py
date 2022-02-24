@@ -98,9 +98,11 @@ def docuChessInfo(pathChessChoose):
     print("chess information documentation done!")
     return all_chess_data_path
 
+
 def main(): # 主函数
     pathChessChoose = Global_Params.M_data_360_path  # 人为选择的数据的路径
     all_chess_data_path = docuChessInfo(pathChessChoose)
+
 
 # 调用函数
 if __name__ == '__main__':
