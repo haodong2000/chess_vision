@@ -3,6 +3,7 @@
 
 import cv2
 import os
+import shutil
 import sys
 
 import datetime
@@ -26,6 +27,7 @@ from load_data import str2int
 
 CHESS_IMAGE_SHOW = True
 SAVE_CROP = True
+SHOW_GLOBAL = False
 
 def read_origin_image():
     origin_image_path = Global_Params.M_systemCamTest_path
@@ -55,6 +57,18 @@ def read_origin_image():
 
 def hough_circle(origin_image_list, count_image):
     save_dir = Global_Params.M_model_save_path + "/"  # the model stored there
+
+    folder = Global_Params.M_image_circle_test_path
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
     # sort by last modified time
     model_lists = os.listdir(save_dir)
     model_lists = sorted(model_lists,
@@ -94,10 +108,11 @@ def hough_circle(origin_image_list, count_image):
         # print("grey image show: index = ", index)
         window_name = "grey of " + origin_image_list[index]
 
-        if CHESS_IMAGE_SHOW or SAVE_CROP:
+        if CHESS_IMAGE_SHOW or SHOW_GLOBAL:
             cv2.imshow(window_name, gray_origin_image)
-            if SAVE_CROP:
-                time.sleep(0.5)
+            if SHOW_GLOBAL:
+                flag = cv2.waitKey(1)
+                time.sleep(1)
                 save_path = Global_Params.M_imageProcessTestAns_path + "/grey_" + str(
                     index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
                 cv2.imwrite(save_path, gray_origin_image)
@@ -169,10 +184,11 @@ def hough_circle(origin_image_list, count_image):
         # cv2.imshow(window_name, temp_origin)
         # print(str(index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg")
 
-        if CHESS_IMAGE_SHOW or SAVE_CROP:
+        if CHESS_IMAGE_SHOW or SHOW_GLOBAL:
             cv2.imshow(window_name, temp_origin)
-            if SAVE_CROP:
-                time.sleep(0.25)
+            if SHOW_GLOBAL:
+                flag = cv2.waitKey(1)
+                time.sleep(1)
                 save_path = Global_Params.M_imageProcessTestAns_path + "/circle_" + str(
                     index) + "_" + datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".jpg"
                 cv2.imwrite(save_path, temp_origin)
@@ -208,17 +224,29 @@ def hough_circle(origin_image_list, count_image):
 
             if CHESS_IMAGE_SHOW:
                 cv2.imshow(str(index_circle + 1) + " <crop>", crop_cv_im)
-                flag = cv2.waitKey(0)
-                if flag == 27:
-                    cv2.destroyWindow(str(index_circle + 1) + " <crop>")
-                elif flag == 13:
+                if SAVE_CROP:
+                    flag = cv2.waitKey(1)
+                    time.sleep(0.05)
                     crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
-                    new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(index) + ".jpg"
+                    new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + str(
+                        index) + "_" + str(index_circle) + ".jpg"
                     cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
                     cv2.destroyWindow(str(index_circle + 1) + " <crop>")
-                    print("=============== " + os.path.join(data_no_use_path, new_origin_name) + " ==SAVED===================")
+                    print("=============== " + os.path.join(data_no_use_path,
+                                                            new_origin_name) + " ==SAVED===================")
                 else:
-                    print("generate_data.py, line:24, esc expected")
+                    flag = cv2.waitKey(0)
+                    if flag == 27:
+                        cv2.destroyWindow(str(index_circle + 1) + " <crop>")
+                    elif flag == 13:
+                        crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
+                        new_origin_name = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + "_crop_" + \
+                                          str(index) + "_" + str(index_circle) + ".jpg"
+                        cv2.imwrite(os.path.join(data_no_use_path, new_origin_name), crop_cv_im)
+                        cv2.destroyWindow(str(index_circle + 1) + " <crop>")
+                        print("=============== " + os.path.join(data_no_use_path, new_origin_name) + " ==SAVED===================")
+                    else:
+                        print("generate_data.py, line:24, esc expected")
 
             crop_cv_im = cv2.resize(crop_cv_im, (Global_Params.M_norm_size, Global_Params.M_norm_size))
             crop_cv_im = img_to_array(crop_cv_im)
