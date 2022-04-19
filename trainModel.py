@@ -23,9 +23,16 @@ from keras.preprocessing.image import ImageDataGenerator
 from imutils import paths
 import sys
 sys.dont_write_bytecode = True
+import argparse
 
 
-def load_data(image_paths, norm_size):
+def get_user_input():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ratio', default=10, type=int, help='train & test ratio')
+    return parser.parse_args()
+
+
+def load_data(image_paths, norm_size, ratio):
     data = []
     label = []
     test_data = []
@@ -40,12 +47,15 @@ def load_data(image_paths, norm_size):
         image = cv2.imread(each_image)
         image = cv2.resize(image, (norm_size, norm_size))
         image = img_to_array(image)
-        data.append(image)
+        # data.append(image)
         maker = str2int(each_image.split(os.path.sep)[-2])
-        label.append(maker)
-        if count_image % 10 == 0:
+        # label.append(maker)
+        if count_image % ratio == 0:
             test_data.append(image)
             test_label.append(maker)
+        else:
+            data.append(image)
+            label.append(maker)
 
     data = np.array(data)
     print("data shape      = ", data.shape, " ===============================")
@@ -75,15 +85,17 @@ def load_data(image_paths, norm_size):
     return data, label, test_data, test_label
 
 
-def main(): # 主函数
-    pathChessChoose = Global_Params.M_data_360_path  # 人为选择的数据的路径
+def main():
+    user_input = get_user_input()
+    pathChessChoose = Global_Params.M_data_360_path  # data path
     all_chess_data_path = docuChessInfo(pathChessChoose)
-    data, label, test_data, test_label = load_data(all_chess_data_path, norm_size)
+    data, label, test_data, test_label = load_data(all_chess_data_path, norm_size, user_input.ratio)
     model = CNN_train.TrainCnnModel(data, label, norm_size, test_data, test_label)
     # model.save(Global_Params.M_model_save_path)
     print("Model saved.")
     CNN_train_w.trainModel(data, label, norm_size, test_data, test_label)
+    print("Model saved.")
 
-# 调用函数
+
 if __name__ == '__main__':
     main()
