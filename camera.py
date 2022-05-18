@@ -13,7 +13,7 @@ import Global_Params
 
 def getOriginImage():
     print(cv2.__version__)
-    capture = cv2.VideoCapture(0) # on Webcam
+    capture = cv2.VideoCapture(2) # on Webcam
     default_size = (int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)),
                     int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)))
     print("old size: ", default_size)
@@ -29,11 +29,11 @@ def getOriginImage():
     ImageStorePath = Global_Params.M_origin_image_path
     count = 0
 
-    skip_lines = 0
-    with open('./fisheye_parameter.yaml') as infile:
-        for i in range(skip_lines):
-            _ = infile.readline()
-        data = yaml.load(infile)
+    # skip_lines = 0
+    # with open('./fisheye_parameter.yaml') as infile:
+    #     for i in range(skip_lines):
+    #         _ = infile.readline()
+    #     data = yaml.load(infile)
 
     while(True):
         ret, origin_image = capture.read()
