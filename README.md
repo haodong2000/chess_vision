@@ -14,7 +14,7 @@ new version
 
 - RealChessboardImage
 
-![2](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/test/chess_cnn/3.jpg)
+![2](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/chess_cnn/3.jpg)
 
 - HoughCircleProcess
 
