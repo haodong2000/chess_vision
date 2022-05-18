@@ -74,7 +74,7 @@ def RedBlackBoost(img_set, IMAGE_SHOW_OR_NOT, IMAGE_SHOW_FREQUENCY):
                     if algorithm.outOfRadius(j, i):
                         boosted_img_set[idx, i, j, :] = [255, 255, 255]
                         continue
-                    if ((0 <= hsv_img[i, j, 0] <= 17) or (345 <= hsv_img[i, j, 0] <= 360)) and \
+                    if ((0 <= hsv_img[i, j, 0] <= 20) or (100 <= hsv_img[i, j, 0] <= 360)) and \
                             (66.0 <= hsv_img[i, j, 1]*255 <= 255) and (33.0 <= hsv_img[i, j, 2] <= 255):
                         boosted_img_set[idx, i, j, :] = [0, 0, 255]
                     else:
