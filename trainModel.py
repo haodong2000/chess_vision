@@ -28,11 +28,11 @@ import argparse
 
 def get_user_input():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ratio', default=10, type=int, help='train & test ratio')
+    parser.add_argument('--ratio', default=7, type=int, help='train & test ratio')
     return parser.parse_args()
 
 
-def load_data(image_paths, norm_size, ratio):
+def load_data(image_paths, norm_size, ratio, show_boost=False):
     data = []
     label = []
     test_data = []
@@ -59,14 +59,14 @@ def load_data(image_paths, norm_size, ratio):
 
     data = np.array(data)
     print("data shape      = ", data.shape, " ===============================")
-    data = filter.RedBlackBoost(data, False, 99)
+    data = filter.RedBlackBoost(data, show_boost, 5) # SHEN
     data = data/255.0
     label = np.array(label)
     label = to_categorical(label, num_classes=classes)
 
     test_data = np.array(test_data)
     print("test_data shape = ", test_data.shape, " ===============================")
-    test_data = filter.RedBlackBoost(test_data, False, 99)
+    test_data = filter.RedBlackBoost(test_data, show_boost, 5) # SHEN
     test_data = test_data/255.0
     test_label = np.array(test_label)
     test_label = to_categorical(test_label, num_classes=classes)
@@ -85,17 +85,22 @@ def load_data(image_paths, norm_size, ratio):
     return data, label, test_data, test_label
 
 
-def main():
+def main(TEST_MODE):
     user_input = get_user_input()
+    if TEST_MODE:
+        pathChessChoose = Global_Params.M_data_per_360_path  # data path
+        all_chess_data_path = docuChessInfo(pathChessChoose)
+        data, label, test_data, test_label = load_data(all_chess_data_path, norm_size, user_input.ratio, show_boost=True)
+        return
     pathChessChoose = Global_Params.M_data_360_path  # data path
     all_chess_data_path = docuChessInfo(pathChessChoose)
-    data, label, test_data, test_label = load_data(all_chess_data_path, norm_size, user_input.ratio)
+    data, label, test_data, test_label = load_data(all_chess_data_path, norm_size, user_input.ratio, show_boost=False)
     model = CNN_train.TrainCnnModel(data, label, norm_size, test_data, test_label)
-    # model.save(Global_Params.M_model_save_path)
+    model.save(Global_Params.M_model_save_path)
     print("Model saved.")
     CNN_train_w.trainModel(data, label, norm_size, test_data, test_label)
     print("Model saved.")
 
 
 if __name__ == '__main__':
-    main()
+    main(TEST_MODE=False)
