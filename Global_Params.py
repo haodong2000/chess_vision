@@ -43,15 +43,15 @@ M_PORT_TEST = 6666
 
 M_Test_Webcam = 5
 
-M_point_up = 60
-M_point_down = 1030
-M_point_left = 370
-M_point_right = 1458
+M_point_up = 40 - 25
+M_point_down = 1080 - 35
+M_point_left = 300 - 50 - 5
+M_point_right = 1920 - 500 - 10
 
-M_up = (58)/1.0
-M_down = (918)/1.0
-M_left = (64)/1.0
-M_right = (1042)/1.0
+M_up = (64)/1.0
+M_down = (956)/1.0
+M_left = (58)/1.0
+M_right = (1056)/1.0
 
 # board -> 54 ,  956 ,  54 ,  1068
 # board -> 60 ,  970 ,  58 ,  1076
@@ -69,6 +69,8 @@ M_right = (1042)/1.0
 # board -> 56 ,  910 ,  54 ,  1034
 # board -> 56 ,  922 ,  56 ,  1036
 # board -> 64 ,  934 ,  60 ,  1040
+# board -> 62 ,  952 ,  44 ,  1046
+# board -> 68 ,  954 ,  52 ,  830
 
 # Premature end of JPEG file
 
