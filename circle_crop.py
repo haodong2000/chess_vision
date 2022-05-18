@@ -138,10 +138,10 @@ def hough_circle(origin_image_list, count_image):
             cv2.HOUGH_GRADIENT,
             1.0, # dp, the inverse ratio of resolution
             round(min(img_height, img_width)/10.5), # Minimum distance between detected centers
-            param1=425, # Upper threshold for the internal Canny edge detector
+            param1=325, # Upper threshold for the internal Canny edge detector
             param2=30, # Threshold for center detection
             minRadius=round(min(img_height, img_width)/40.0), # Minimum radius to be detected, default 0
-            maxRadius=round(min(img_height, img_width)/20.0) # Maximum radius to be detected, default 0
+            maxRadius=round(min(img_height, img_width)/15.0) # Maximum radius to be detected, default 0
         )
 
         # print(round(min(img_height, img_width)/8.0),
