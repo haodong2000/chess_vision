@@ -7,13 +7,15 @@ import datetime
 from PIL import Image
 
 import numpy as np
-import yaml
+# import yaml
 
 import Global_Params
 
+IS_WEBCAM = False
+
 def getOriginImage():
     print(cv2.__version__)
-    capture = cv2.VideoCapture(2) # on Webcam
+    capture = cv2.VideoCapture(2) if IS_WEBCAM else cv2.VideoCapture(-1)
     default_size = (int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)),
                     int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)))
     print("old size: ", default_size)

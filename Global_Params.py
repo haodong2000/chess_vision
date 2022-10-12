@@ -6,6 +6,7 @@ M_data_no_use_path = "./data_no_use"
 M_data_per_360_path = "./data_pre_360"
 M_data_360_path = "./data_360"
 M_test_path = "./test"
+M_test_image_process = "./test_image_process"
 
 M_number_angle = 720
 
@@ -24,9 +25,9 @@ M_origin_image_path = "./data/origin_image"
 M_chess_info_txt = "./chessInfo.txt"
 M_chess_vertify_txt = "./chessVertify.txt"
 
-# M_model_save_path = "./modelSave/boost_cnn_model.h5"
+# M_model_save_path = "./model_save/boost_cnn_model.h5"
 
-M_model_save_path = "./modelSave"
+M_model_save_path = "./model_save"
 
 M_epoch_number = 100
 

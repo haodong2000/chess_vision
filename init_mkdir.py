@@ -11,6 +11,7 @@ DIRS = [
     Global_Params.M_data_per_360_path,
     Global_Params.M_data_360_path,
     Global_Params.M_test_path,
+    Global_Params.M_test_image_process,
     Global_Params.M_imageProcessTest_path,
     Global_Params.M_CIMC_Webcam,
     Global_Params.M_imageProcessTestAns_path,

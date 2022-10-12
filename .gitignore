@@ -139,7 +139,7 @@ dmypy.json
 cython_debug/
 
 test_image_process/
-modelSave/
+model_save/
 data_360/
 data_new/
 data_no_use/

@@ -155,7 +155,7 @@ def trainModel(x_train, y_train, x_test, y_test):
     print('acc', score[1])
 
     # saving the model
-    save_dir = "./modelSave"
+    save_dir = "./model_save"
     model_name = "model" + "_" + str(spoch_number) + "_" + str(score[1]) + '.h5'
     model_path = os.path.join(save_dir, model_name)
 

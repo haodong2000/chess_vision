@@ -10,7 +10,7 @@ import os
 from tensorflow.keras.utils import to_categorical
 from keras.preprocessing.image import img_to_array
 from keras.callbacks import EarlyStopping
-from imutils import paths
+# from imutils import paths
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten, Dense
 import tkinter

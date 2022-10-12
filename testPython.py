@@ -16,7 +16,7 @@ print(keras.__version__)
 print(platform.python_version())
 
 # test os
-pathOfModel = "./modelSave"
+pathOfModel = "./model_save"
 if not os.path.exists(pathOfModel): #判断是否存在
     os.makedirs(pathOfModel) #不存在则创建
 pathOfModel = pathOfModel + "/"

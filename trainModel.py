@@ -20,7 +20,7 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPool2D, Activation
 from keras.layers import Dense, Dropout, Flatten
 from keras.preprocessing.image import ImageDataGenerator
-from imutils import paths
+# from imutils import paths
 import sys
 sys.dont_write_bytecode = True
 import argparse
