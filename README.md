@@ -17,7 +17,7 @@ new version
     - python 3.6
     - tensorflow 2.4
     - keras 2.4
-    - opencv 4.5.1
+    - opencv
 - Whole Structure
 
 ![Screenshot 2022-05-27 180653](https://user-images.githubusercontent.com/67775090/170679176-e01f23dd-6be9-42be-af77-70f440031236.png)
