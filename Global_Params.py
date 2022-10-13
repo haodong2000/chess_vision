@@ -39,7 +39,7 @@ M_valid_chess_number = 32
 
 M_norm_size = 120
 
-M_HOST_TEST = "127.0.0.1"  # IVP4 localHost
+M_HOST_TEST = "127.0.0.1"  # IPV4 localhost
 M_PORT_TEST = 6666
 
 M_Test_Webcam = 5
