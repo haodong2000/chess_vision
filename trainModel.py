@@ -58,15 +58,15 @@ def load_data(image_paths, norm_size, ratio, show_boost=False):
             label.append(maker)
 
     data = np.array(data)
-    print("data shape      = ", data.shape, " ===============================")
-    data = filter.RedBlackBoost(data, show_boost, 5) # SHEN
+    print("data shape =", data.shape, "===============================")
+    data = filter.RedBlackBoost(data, show_boost, 5, THREAD=16) # SHEN
     data = data/255.0
     label = np.array(label)
     label = to_categorical(label, num_classes=classes)
 
     test_data = np.array(test_data)
-    print("test_data shape = ", test_data.shape, " ===============================")
-    test_data = filter.RedBlackBoost(test_data, show_boost, 5) # SHEN
+    print("test_data shape =", test_data.shape, "===============================")
+    test_data = filter.RedBlackBoost(test_data, show_boost, 5, THREAD=16) # SHEN
     test_data = test_data/255.0
     test_label = np.array(test_label)
     test_label = to_categorical(test_label, num_classes=classes)
@@ -85,7 +85,7 @@ def load_data(image_paths, norm_size, ratio, show_boost=False):
     return data, label, test_data, test_label
 
 
-def main(TEST_MODE):
+def main(TEST_MODE, TRAIN_MODEL):
     user_input = get_user_input()
     if TEST_MODE:
         pathChessChoose = Global_Params.M_data_per_360_path  # data path
@@ -95,12 +95,10 @@ def main(TEST_MODE):
     pathChessChoose = Global_Params.M_data_360_path  # data path
     all_chess_data_path = docuChessInfo(pathChessChoose)
     data, label, test_data, test_label = load_data(all_chess_data_path, norm_size, user_input.ratio, show_boost=False)
-    model = CNN_train.TrainCnnModel(data, label, norm_size, test_data, test_label)
-    model.save(Global_Params.M_model_save_path)
-    print("Model saved.")
-    CNN_train_w.trainModel(data, label, norm_size, test_data, test_label)
-    print("Model saved.")
+    if TRAIN_MODEL:
+        CNN_train.TrainCnnModel(data, label, norm_size, test_data, test_label)
+        CNN_train_w.trainModel(data, label, norm_size, test_data, test_label)
 
 
 if __name__ == '__main__':
-    main(TEST_MODE=False)
+    main(TEST_MODE=False, TRAIN_MODEL=False)

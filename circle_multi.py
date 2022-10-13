@@ -246,7 +246,7 @@ def hough_circle():
 
     data = np.array(data)
     print("board data shape      = ", data.shape, " ===============================")
-    data = filter.RedBlackBoost(data, False, 99)
+    data = filter.RedBlackBoost(data, False, 99, THREAD=16)
     data = data / 255.0
 
     for i in range(len(data)):

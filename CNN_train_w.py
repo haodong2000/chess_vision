@@ -148,4 +148,5 @@ def trainModel(x_train, y_train, size, x_test, y_test):
         os.makedirs(save_dir)
 
     print('Saved trained model at %s ' % model_path)
-    print("train model done!")
+    print("Train model done!")
+    print("Model saved.")

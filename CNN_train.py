@@ -104,6 +104,5 @@ def TrainCnnModel(data, label, size, x_test, y_test):
         os.makedirs(save_dir)
 
     print('Saved trained model at %s ' % model_path)
-    print("train model done!")
-
-    return model
+    print("Train model done!")
+    print("Model saved.")

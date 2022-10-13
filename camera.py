@@ -11,7 +11,7 @@ import numpy as np
 
 import Global_Params
 
-IS_WEBCAM = False
+IS_WEBCAM = True
 
 def getOriginImage():
     print(cv2.__version__)
