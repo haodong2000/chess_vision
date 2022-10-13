@@ -5,6 +5,7 @@ new version
 - 2021/06/16 versino 1.0
 - 2021/10/30 final version 2.0
 - Usage:
+    - `init_mkdir.py` to create repo needed
     - `camera.py` for capturing images which are saved to `./test_image_process/systemCamTest`
     - `circle_crop.py` for croping chesses which are saved to `./test_image_process/image_circle_test`
     - Next step requires HUMAN to move cropped chesses to corresponding folder under `./data_pre_360`
