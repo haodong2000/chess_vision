@@ -62,7 +62,7 @@ def TrainCnnModel(data, label, size, x_test, y_test):
 
     early_stopping = EarlyStopping(monitor='val_accuracy', min_delta=0.00001, patience=5, mode='max')
     print("default learning rate =", model.optimizer.learning_rate)
-    K.set_value(model.optimizer.learning_rate, 0.00001)
+    K.set_value(model.optimizer.learning_rate, 0.0001)
     print("current learning rate =", model.optimizer.learning_rate)
     history = model.fit(data, label, batch_size=36, epochs=epoch_number, callbacks=[early_stopping], verbose=1,
                         validation_split=validation_split_rate)
