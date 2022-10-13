@@ -101,4 +101,4 @@ def main(TEST_MODE, TRAIN_MODEL):
 
 
 if __name__ == '__main__':
-    main(TEST_MODE=False, TRAIN_MODEL=False)
+    main(TEST_MODE=False, TRAIN_MODEL=True)
