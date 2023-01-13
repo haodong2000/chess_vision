@@ -1,10 +1,10 @@
-# Chess Position & Type Recognition System (SRTP)	May 2021 – July 2021
+# Chess Position & Type Recognition System (SRTP)
 
 - Developed a system that recognizes chess positions & types based on real-time captured images
 - Used 1) Hough Circle algorithm for recognizing chess locations, and 2) a deep CNN model with Red-Black enhancement for recognizing chess types
 - Achieved an identification accuracy of over 99.5%
 
-## Timeline
+## Timeline & Usage
 
 - 2021/06/16 versino 1.0
 - 2021/10/30 final version 2.0
