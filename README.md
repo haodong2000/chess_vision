@@ -29,20 +29,20 @@
 
 - DataGenerator
 
-![1](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/chess_cnn/1.png)
+![1](https://github.com/lebronlihd/chess_vision/blob/master/chess_cnn/1.png)
 
 - RedBlackReinforcement
 
-![1](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/chess_cnn/2.png)
+![1](https://github.com/lebronlihd/chess_vision/blob/master/chess_cnn/2.png)
 
 - RealChessboardImage
 
-![2](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/chess_cnn/3.jpg)
+![2](https://github.com/lebronlihd/chess_vision/blob/master/chess_cnn/3.jpg)
 
 - HoughCircleProcess
 
-![2](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/chess_cnn/4.jpg)
+![2](https://github.com/lebronlihd/chess_vision/blob/master/chess_cnn/4.jpg)
 
 - ChessLocationResult & ChessboardMatrixResult
 
-![4](https://github.com/LeBronLiHD/SRTP_CNN_ChessBoardGenerating/blob/master/chess_cnn/5.png)
+![4](https://github.com/lebronlihd/chess_vision/blob/master/chess_cnn/5.png)
