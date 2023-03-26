@@ -3,7 +3,9 @@
 - Developed a system that recognizes chess positions & types based on real-time captured images
 - Used 1) Hough Circle algorithm for recognizing chess locations, and 2) a deep CNN model with Red-Black enhancement for recognizing chess types
 - Achieved an identification accuracy of over 99.5%
-- Demo for the entire SRTP: https://www.youtube.com/watch?v=V6IXxbrqHmE, which included 3 studies, with the [chess_simulator](https://github.com/lebronlihd/chess_simulator), and [alphacc_zero](https://github.com/lebronlihd/alphacc_zero).
+- Demos for the entire SRTP, which included 3 studies, with the [chess_simulator](https://github.com/lebronlihd/chess_simulator), and [alphacc_zero](https://github.com/lebronlihd/alphacc_zero).
+  - **[BiliBili Video Link](https://www.bilibili.com/video/BV1zK411f7zJ)**
+  - **[YouTube Viedo Link](https://youtu.be/V6IXxbrqHmE)**
 
 ## Timeline & Usage
 
