@@ -1,4 +1,4 @@
-# Chess Position & Type Recognition System (SRTP)
+## Chess Position & Type Recognition System (SRTP)
 
 - Developed a system that recognizes chess positions & types based on real-time captured images
 - Used 1) Hough Circle algorithm for recognizing chess locations, and 2) a deep CNN model with Red-Black enhancement for recognizing chess types
@@ -7,7 +7,7 @@
   - **[BiliBili Video Link](https://www.bilibili.com/video/BV1zK411f7zJ)**
   - **[YouTube Viedo Link](https://youtu.be/V6IXxbrqHmE)**
 
-## Timeline & Usage
+### Usage & Environment
 
 - Usage:
     - `init_mkdir.py` to create repo needed
